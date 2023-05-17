@@ -43,40 +43,49 @@
           <table class="table table-striped">
             <thead>
               <tr>
-                <td>
-                  <div class="row">
-                    <div class="col-2">
-                      <input class="form-check-input" type="checkbox" value="" aria-label="check all items">
-                    </div>
-                  </div>
+                <th class="col-1" scope="col">
+                  <input class="form-check-input" type="checkbox" value="" aria-label="check all items">
                 </td>
-                <td>
-                  <div class="row">
-                    <div class="col-2">
-                      <th>#</th>
-                    </div>
-                  </div>
-                </td>
-                <td>
-                  <div class="row">
-                    <div class="col-6">
-                      <th class="w-100">task</th>
-                    </div>
-                  </div>
-                </td>
-                <td>
-                  <div class="row">
-                    <div class="col-2">
-                      <button type="button" class="btn btn-danger" id="btn-del-selected">Remove selected tasks</button>
-
-                    </div>
-                  </div>
-                </td>
+                <th class="col-1"scope="col">#</th>
+                <th class="col-9" scope="col">Task</th>
+                <th class="col-1" scope="col">
+                  <button type="button" class="btn btn-danger" id="btn-del-selected">Remove selected tasks</button>
+                </th>
               </tr>
             </thead>
-            
             <!--sample table data-->
-            <tbody>
+            <tbody class="table-group-divier">
+              <tr>
+                <td scope="row">
+                  <input class="form-check-input" type="checkbox" value="" aria-label="check item">
+                </th>
+                <td>1</td>
+                <td>task 1</td>
+                <td>
+                  <button type="button" class="btn btn-light" aria-label="remove item">remove</button>
+                </td>
+              </tr>
+              <tr>
+                <td scope="row">
+                  <input class="form-check-input" type="checkbox" value="" aria-label="check item">
+                </th>
+                <td>2</td>
+                <td>task 2</td>
+                <td>
+                  <button type="button" class="btn btn-light" aria-label="remove item">remove</button>
+                </td>
+              </tr>
+              <tr>
+                <td scope="row">
+                  <input class="form-check-input" type="checkbox" value="" aria-label="check item">
+                </th>
+                <td>3</td>
+                <td>task 3</td>
+                <td>
+                  <button type="button" class="btn btn-light" aria-label="remove item">remove</button>
+                </td>
+              </tr>
+
 
             </tbody>
           </table>
