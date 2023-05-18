@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="image/ico" href="image/favicon_to_do_list.ico">
     <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="node_modules/@fortawesome/fontawesome-free/css/all.min.css">
     <title>To Do List</title>
 </head>
 <body>
@@ -27,14 +29,18 @@
         <!--item manage row-->
         <div class="row">
           <!--add new task-->
-          <div class="col-3 d-flex">
-            <button type="button" class="btn btn-primary" aria-label="add new task">add new task</button>
+          <div class="col-md-3 justify-content-end">
+            <button type="button" class="btn btn-primary" aria-label="add new task">
+              <i class="fa-solid fa-plus"></i>
+            </button>
           </div>    
 
           <!--search-->
-          <div class="col-7 d-flex">
+          <div class="col-md-7 d-flex">
             <input type="text" class="form control w-100" id="input-search" placeholder="Search for a task..." aria-lable="search a task" aria-placeholder="search a task">
-            <button type="button" class="btn btn-secondary" id="bth-search" aria-label="search button">Search</button>
+            <button type="button" class="btn btn-secondary" id="bth-search" aria-label="search button">
+              <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
           </div>
         </div>
         
@@ -43,13 +49,15 @@
           <table class="table table-striped">
             <thead>
               <tr>
-                <th class="col-1" scope="col">
+                <th class="col-sm-1" scope="col">
                   <input class="form-check-input" type="checkbox" value="" aria-label="check all items">
                 </td>
-                <th class="col-1"scope="col">#</th>
-                <th class="col-9" scope="col">Task</th>
-                <th class="col-1" scope="col">
-                  <button type="button" class="btn btn-danger" id="btn-del-selected">Remove selected tasks</button>
+                <th class="col-sm-1"scope="col">#</th>
+                <th class="col-lg-9" scope="col">Task</th>
+                <th class="col-sm-1" scope="col">
+                  <button type="button" class="btn btn-danger" id="btn-del-selected">
+                    <i class="fa-solid fa-trash-can"></i>
+                  </button>
                 </th>
               </tr>
             </thead>
@@ -62,7 +70,9 @@
                 <td>1</td>
                 <td>task 1</td>
                 <td>
-                  <button type="button" class="btn btn-light" aria-label="remove item">remove</button>
+                  <button type="button" class="btn btn-light" aria-label="remove item">
+                    <i class="fa-regular fa-trash-can"></i>
+                  </button>
                 </td>
               </tr>
               <tr>
@@ -72,7 +82,9 @@
                 <td>2</td>
                 <td>task 2</td>
                 <td>
-                  <button type="button" class="btn btn-light" aria-label="remove item">remove</button>
+                  <button type="button" class="btn btn-light" aria-label="remove item">
+                    <i class="fa-regular fa-trash-can"></i>
+                  </button>
                 </td>
               </tr>
               <tr>
@@ -82,7 +94,9 @@
                 <td>3</td>
                 <td>task 3</td>
                 <td>
-                  <button type="button" class="btn btn-light" aria-label="remove item">remove</button>
+                  <button type="button" class="btn btn-light" aria-label="remove item">
+                    <i class="fa-regular fa-trash-can"></i>
+                  </button>
                 </td>
               </tr>
 
