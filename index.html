@@ -30,7 +30,7 @@
         <div class="row">
           <!--add new task-->
           <div class="col-md-3 justify-content-end">
-            <button type="button" class="btn btn-primary" aria-label="add new task">
+            <button id="add-new-task-btn" type="button" class="btn btn-primary" aria-label="add new task">
               <i class="fa-solid fa-plus"></i>
             </button>
           </div>    
@@ -55,7 +55,7 @@
                 <th class="col-sm-1"scope="col">#</th>
                 <th class="col-lg-9" scope="col">Task</th>
                 <th class="col-sm-1" scope="col">
-                  <button type="button" class="btn btn-danger" id="btn-del-selected">
+                  <button id='remove-all-btn' type="button" class="btn btn-danger" id="btn-del-selected">
                     <i class="fa-solid fa-trash-can"></i>
                   </button>
                 </th>
@@ -105,7 +105,7 @@
           </table>
         </div>
       </div>
-
-    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="./app.js"></script>
+    <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
