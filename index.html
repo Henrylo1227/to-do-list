@@ -10,7 +10,7 @@
     <title>To Do List</title>
 </head>
 <body>
-    <div class="container text-center">
+    <div id=main-container class="container text-center">
         <!--heading row-->
         <div class="row"> 
           <div class="col-1">
@@ -45,67 +45,9 @@
         </div>
         
         <!--item table row-->
-        <div class="row-12">
-          <table class="table table-striped">
-            <thead>
-              <tr>
-                <th class="col-sm-1" scope="col">
-                  <input class="form-check-input" type="checkbox" value="" aria-label="check all items">
-                </td>
-                <th class="col-sm-1"scope="col">#</th>
-                <th class="col-lg-9" scope="col">Task</th>
-                <th class="col-sm-1" scope="col">
-                  <button id='remove-all-btn' type="button" class="btn btn-danger" id="btn-del-selected">
-                    <i class="fa-solid fa-trash-can"></i>
-                  </button>
-                </th>
-              </tr>
-            </thead>
-            <!--sample table data-->
-            <tbody class="table-group-divier">
-              <tr>
-                <td scope="row">
-                  <input class="form-check-input" type="checkbox" value="" aria-label="check item">
-                </th>
-                <td>1</td>
-                <td>task 1</td>
-                <td>
-                  <button type="button" class="btn btn-light" aria-label="remove item">
-                    <i class="fa-regular fa-trash-can"></i>
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <td scope="row">
-                  <input class="form-check-input" type="checkbox" value="" aria-label="check item">
-                </th>
-                <td>2</td>
-                <td>task 2</td>
-                <td>
-                  <button type="button" class="btn btn-light" aria-label="remove item">
-                    <i class="fa-regular fa-trash-can"></i>
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <td scope="row">
-                  <input class="form-check-input" type="checkbox" value="" aria-label="check item">
-                </th>
-                <td>3</td>
-                <td>task 3</td>
-                <td>
-                  <button type="button" class="btn btn-light" aria-label="remove item">
-                    <i class="fa-regular fa-trash-can"></i>
-                  </button>
-                </td>
-              </tr>
-
-
-            </tbody>
-          </table>
         </div>
       </div>
-    <script src="./app.js"></script>
+    <script src="./app.js" type="module"></script>
     <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
