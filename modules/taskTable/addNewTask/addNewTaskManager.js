@@ -16,22 +16,28 @@ function showCreateNewTaskModalForm(table){
     $('#addTaskModal').modal('show');
     const createTaskBtn = document.getElementById('createTaskBtn');
     const taskDescriptionInput = document.getElementById('taskDescription');
+
+    taskDescriptionInput.addEventListener('keypress', (event) =>{
+        if (event.key === 'Enter'){
+            createTaskBtn.click();
+        }
+    });
     
     createTaskBtn.addEventListener('click', () => {
-    const taskDescription = taskDescriptionInput.value;
-    if (taskDescription.trim() !== '') {
-        // Perform task creation logic here
-        console.log('Creating task:', taskDescription);
-        const newTask = new Task(false, false, taskDescription.trim());
-        addTaskToTable(newTask, table);
+        const taskDescription = taskDescriptionInput.value;
+        if (taskDescription.trim() !== '') {
+            // Perform task creation logic here
+            const newTask = new Task(false, false, taskDescription.trim());
+            addTaskToTable(newTask, table);
 
-        // Reset the input field
-        taskDescriptionInput.value = '';
+            // Reset the input field
+            taskDescriptionInput.value = '';
 
-        // Close the modal
-        $('#addTaskModal').modal('hide');
-    }
+            // Close the modal
+            $('#addTaskModal').modal('hide');
+        }  
     });
+
 }
 
 function addTaskToTable(newTask, table){
