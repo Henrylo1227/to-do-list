@@ -1,207 +1,183 @@
-export class TaskTable{
-    constructor(){
-        this.taskList=[];
+export class TaskTable {
+    constructor() {
+      this.taskList = [];
     }
-
-    //Methods
-    getTaskNum(){
-        return this.taskNum;
+  
+    // Methods
+    getTaskNum() {
+      return this.taskNum;
     }
-
-    appendTaskToTable(task, id){
-        this.taskList.push(task);
-        this.createTaskUI(task, id);
-        //add del button listener //TO-DO
-        this.attachDelTaskBtnListener('del-'+id.toString());
+  
+    appendTaskToTable(task, id) {
+      this.taskList.push(task);
+      this.createTaskUI(task, id);
+      // add del button listener //TO-DO
+      this.attachDelTaskBtnListener('del-' + id.toString());
     }
-
-    //create empty task table with headings and a empty body
-    createTaskTableUI(){
-        const itemTableRow = document.createElement('div');
-        itemTableRow.className = 'row';
-
-        const itemTable = document.createElement('table');
-        itemTable.className = 'table table-hover';
-        itemTableRow.appendChild(itemTable);
-
-        const thead = document.createElement('thead');
-        itemTable.appendChild(thead);
-
-        const tr = document.createElement('tr');
-        thead.appendChild(tr);
-
-        const th1 = document.createElement('th');
-        th1.className = 'col-sm-1';
-        th1.scope = 'col';
-        tr.appendChild(th1);
-
-        const selectAllBox = document.createElement('input');
-        selectAllBox.id = 'select-all-checkbox';
-        selectAllBox.className = 'form-check-input';
-        selectAllBox.type = 'checkbox';
-        selectAllBox.checked = false;
-        selectAllBox.ariaLabel = 'select all items';
-        th1.appendChild(selectAllBox);
-
-        const th2 = document.createElement('th');
-        th2.className = 'col-sm-1';
-        th2.textContent = '#';
-        th2.scope = 'col';
-        tr.appendChild(th2);
-
-        const th3 = document.createElement('th');
-        th3.className = 'col-sm-8';
-        th3.textContent = 'Task';
-        th3.scope = 'col';
-        tr.appendChild(th3);
-
-        const th4 = document.createElement('th');
-        th4.className = 'col-sm-1';
-        th4.scope = 'col';
-        tr.appendChild(th4);
-
-        const checkBtn = document.createElement('button');
-        checkBtn.id = 'check-all-btn';
-        checkBtn.type = 'button';
-        checkBtn.className = 'btn btn-success';
-        th4.appendChild(checkBtn);
-
-        const checkBtnImg = document.createElement('i');
-        checkBtnImg.className = 'fa-solid fa-check';
-        checkBtn.appendChild(checkBtnImg);
-
-        const th5 = document.createElement('th');
-        th5.className = 'col-sm-1';
-        th5.scope = 'col';
-        tr.appendChild(th5);
-
-        const removeAllBtn = document.createElement('button');
-        removeAllBtn.id = 'remove-selected-btn';
-        removeAllBtn.type = 'button';
-        removeAllBtn.className = 'btn btn-danger';
-        th5.appendChild(removeAllBtn);
-
-        const delBtnImg = document.createElement('i');
-        delBtnImg.className = 'fa-solid fa-trash-can';
-        removeAllBtn.appendChild(delBtnImg);
-        
-        //Append to the html
-        const mainContainer = document.getElementById('main-container');
-        mainContainer.appendChild(itemTableRow);
-        
-        //Append table body, where the task is added here;
-        const tableBody = document.createElement('tbody');
-        tableBody.id = 'table-body'
-        tableBody.className = "table-group-divider";
-        itemTable.appendChild(tableBody);
+  
+    // create empty task table with headings and an empty body
+    createTaskTableUI() {
+      const itemTableRow = $('<div></div>').addClass('row');
+      const itemTable = $('<table></table>').addClass('table table-hover');
+      itemTableRow.append(itemTable);
+  
+      const thead = $('<thead></thead>');
+      itemTable.append(thead);
+  
+      const tr = $('<tr></tr>');
+      thead.append(tr);
+  
+      const th1 = $('<th></th>').addClass('col-sm-1').attr('scope', 'col');
+      tr.append(th1);
+  
+      const selectAllBox = $('<input>')
+        .attr('id', 'select-all-checkbox')
+        .addClass('form-check-input')
+        .attr('type', 'checkbox')
+        .prop('checked', false)
+        .attr('aria-label', 'select all items');
+      th1.append(selectAllBox);
+  
+      const th2 = $('<th></th>').addClass('col-sm-1').text('#').attr('scope', 'col');
+      tr.append(th2);
+  
+      const th3 = $('<th></th>').addClass('col-sm-8').text('Task').attr('scope', 'col');
+      tr.append(th3);
+  
+      const th4 = $('<th></th>').addClass('col-sm-1').attr('scope', 'col');
+      tr.append(th4);
+  
+      const checkBtn = $('<button></button>')
+        .attr('id', 'check-all-btn')
+        .attr('type', 'button')
+        .addClass('btn btn-success');
+      th4.append(checkBtn);
+  
+      const checkBtnImg = $('<i></i>').addClass('fa-solid fa-check');
+      checkBtn.append(checkBtnImg);
+  
+      const th5 = $('<th></th>').addClass('col-sm-1').attr('scope', 'col');
+      tr.append(th5);
+  
+      const removeAllBtn = $('<button></button>')
+        .attr('id', 'remove-selected-btn')
+        .attr('type', 'button')
+        .addClass('btn btn-danger');
+      th5.append(removeAllBtn);
+  
+      const delBtnImg = $('<i></i>').addClass('fa-solid fa-trash-can');
+      removeAllBtn.append(delBtnImg);
+  
+      // Append to the html
+      const mainContainer = $('#main-container');
+      mainContainer.append(itemTableRow);
+  
+      // Append table body, where the task is added here;
+      const tableBody = $('<tbody></tbody>').attr('id', 'table-body').addClass('table-group-divider');
+      itemTable.append(tableBody);
     }
-
-    //create task row in the talbe with task[Object] and its object id
-    createTaskUI(task, id){
-        const tr = document.createElement('tr');
-        //select checkbox
-        const selectCheckBoxTd = document.createElement('td');
-        selectCheckBoxTd.scope = 'row';
-        tr.appendChild(selectCheckBoxTd);
-
-        const taskSelectCheckbox = document.createElement('input');
-        taskSelectCheckbox.id = 'select-'+id;
-        taskSelectCheckbox.checked = task.getSelectState(); //True: checked; false: uncheck
-        taskSelectCheckbox.className = 'form-check-input';
-        taskSelectCheckbox.type = 'checkbox';
-        taskSelectCheckbox.value = task.getSelectState().toString();
-        taskSelectCheckbox.ariaLabel = 'check the item: '+ id.toString();
-        selectCheckBoxTd.appendChild(taskSelectCheckbox);
-
-        //#id
-        const idTd = document.createElement('td');
-        idTd.textContent = id+1; //index to #
-        tr.appendChild(idTd);
-
-        //Task description
-        const taskDescTd = document.createElement('td');
-        taskDescTd.textContent = task.getDescription();
-        tr.appendChild(taskDescTd);
-
-        //Task check btn
-        const taskCheckTd = document.createElement('td');
-        tr.appendChild(taskCheckTd);
-
-        const taskCheckBtn = document.createElement('button');
-        taskCheckBtn.type = 'button';
-        taskCheckBtn.className = 'btn btn-light';
-        taskCheckBtn.ariaLabel = 'check task: ' + task.getDescription();
-        const taskCheckBtnId = 'check-' + id.toString();
-        taskCheckBtn.id = taskCheckBtnId;
-        taskCheckTd.appendChild(taskCheckBtn);
-        
-        const taskCheckImg = document.createElement('i');
-        taskCheckImg.className = 'fa-sharp fa-solid fa-check';
-        taskCheckBtn.appendChild(taskCheckImg);
-        
-        //Task delete btn
-        const taskDelTd = document.createElement('td');
-        tr.appendChild(taskDelTd);
-
-        const taskDelBtn = document.createElement('button');
-        taskDelBtn.type = 'button';
-        taskDelBtn.className = 'btn btn-light';
-        taskDelBtn.ariaLabel = 'remove task: ' + task.getDescription();
-        const delBtnId = 'del-' + id.toString();
-        taskDelBtn.id = delBtnId;
-        taskDelTd.appendChild(taskDelBtn);
-        
-        const delBtnImg = document.createElement('i');
-        delBtnImg.className = 'fa-regular fa-trash-can';
-        taskDelBtn.appendChild(delBtnImg);
-
-        //Attach newly created table row to the table body
-        const tableBody = document.getElementById('table-body');
-        tableBody.appendChild(tr);
+  
+    // create task row in the table with task[Object] and its object id
+    createTaskUI(task, id) {
+      const tr = $('<tr></tr>');
+  
+      // select checkbox
+      const selectCheckBoxTd = $('<td></td>').attr('scope', 'row');
+      tr.append(selectCheckBoxTd);
+  
+      const taskSelectCheckbox = $('<input>')
+        .attr('id', 'select-' + id)
+        .prop('checked', task.getSelectState())
+        .addClass('form-check-input')
+        .attr('type', 'checkbox')
+        .val(task.getSelectState().toString())
+        .attr('aria-label', 'check the item: ' + id.toString());
+      selectCheckBoxTd.append(taskSelectCheckbox);
+  
+      // #id
+      const idTd = $('<td></td>').text(id + 1); // index to #
+      tr.append(idTd);
+  
+      // Task description
+      const taskDescTd = $('<td></td>').text(task.getDescription());
+      tr.append(taskDescTd);
+  
+      // Task check btn
+      const taskCheckTd = $('<td></td>');
+      tr.append(taskCheckTd);
+  
+      const taskCheckBtn = $('<button></button>')
+        .attr('type', 'button')
+        .addClass('btn btn-light')
+        .attr('aria-label', 'check task: ' + task.getDescription());
+      const taskCheckBtnId = 'check-' + id.toString();
+      taskCheckBtn.attr('id', taskCheckBtnId);
+      taskCheckTd.append(taskCheckBtn);
+  
+      const taskCheckImg = $('<i></i>').addClass('fa-sharp fa-solid fa-check');
+      taskCheckBtn.append(taskCheckImg);
+  
+      // Task delete btn
+      const taskDelTd = $('<td></td>');
+      tr.append(taskDelTd);
+  
+      const taskDelBtn = $('<button></button>')
+        .attr('type', 'button')
+        .addClass('btn btn-light')
+        .attr('aria-label', 'remove task: ' + task.getDescription());
+      const delBtnId = 'del-' + id.toString();
+      taskDelBtn.attr('id', delBtnId);
+      taskDelTd.append(taskDelBtn);
+  
+      const delBtnImg = $('<i></i>').addClass('fa-regular fa-trash-can');
+      taskDelBtn.append(delBtnImg);
+  
+      // Attach newly created table row to the table body
+      const tableBody = $('#table-body');
+      tableBody.append(tr);
     }
-
-    attachDelTaskBtnListener(btnId){
-        const btn = document.getElementById(btnId);
-        if (btn!=null){
-
-            btn.addEventListener('click', ()=>
-            {
-                //the taskId of the deleted item
-                const delTaskId = btnId.slice(4); //remove "del-"
-                this.removeTask(delTaskId);
-                //TODO: Update database
-
-                //update the UI
-                this.reloadTableUI();
-            })
-        }else{
-            console.log('btn object is null, btnId: '+btnId);
-            console.log(this.taskList);
+  
+    attachDelTaskBtnListener(btnId) {
+      const btn = $('#' + btnId);
+      if (btn != null) {
+        btn.on('click', () => {
+          // the taskId of the deleted item
+          const delTaskId = btnId.slice(4); // remove "del-"
+          this.removeTask(delTaskId);
+          // TODO: Update database
+  
+          // update the UI
+          this.reloadTableUI();
+        });
+      } else {
+        console.log('btn object is null, btnId: ' + btnId);
+        console.log(this.taskList);
+      }
+    }
+  
+    removeTask(taskId) {
+      const tempList = [];
+      console.log(this.taskList.length);
+      for (let i = 0; i < this.taskList.length; i++) {
+        if (i != taskId) {
+          tempList.push(this.taskList[i]);
         }
+      }
+      this.taskList = tempList;
+      console.log('new task list: ' + this.taskList);
     }
-
-    removeTask(taskId){
-        const tempList = [];
-        console.log(this.taskList.length);
-        for (let i = 0; i<this.taskList.length; i++){
-            if (i!= taskId){
-                tempList.push(this.taskList[i]);
-            }
-        }
-        this.taskList = tempList;
-        console.log('new task list: '+this.taskList);
+  
+    // apply change
+    reloadTableUI() {
+      const tableBody = $('#table-body');
+      tableBody.empty();
+      this.taskList.forEach((task, index) => {
+        this.createTaskUI(task, index);
+  
+        this.attachDelTaskBtnListener('del-' + index);
+      });
     }
-
-    //apply chagne
-    reloadTableUI(){
-        const tableBody = document.getElementById('table-body');
-        tableBody.replaceChildren();
-        this.taskList.forEach((task, index) => {
-            this.createTaskUI(task, index);
-            
-            this.attachDelTaskBtnListener('del-'+ index);
-        })
-    }
-}
-
-export default TaskTable;
+  }
+  
+  export default TaskTable;
+  

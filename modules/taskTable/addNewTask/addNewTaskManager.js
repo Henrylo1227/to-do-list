@@ -15,7 +15,35 @@ function addTaskInit(table){
 
 //create a modal form to collect infomation on new task
 function createNewTaskModalForm(){
+    const modal = document.createElement('div');
+    modal.className = 'create-new-task-modal';
+    modal.tabIndex = '-1';
+    modal.role = 'dialog';
+    
+    const modalDialog = document.createElement('div');
+    modal.id = 'create-new-task-modal-dialog';
+    modalDialog.role = 'document';
+    modal.appendChild(modalDialog);
 
+    const modalContent = document.createElement('div');
+    modal.id = 'create-new-task-modal-content';
+    modalDialog.appendChild(modalContent);
+
+    const modalHeader = document.createElement('div');
+    modal.id = 'create-new-task-modal-header';
+    modalContent.appendChild(modalHeader);
+
+    const modalTitle = document.createElement('h5');
+    modalTitle.id = 'create-new-task-modal-title';
+    modalHeader.appendChild(modalTitle);
+
+    const closeBtn = document.createElement('button');
+    closeBtn.id = "create-new-task-modal-title";
+    closeBtn.className = 'close';
+    closeBtn.ariaLabel = 'Close';
+    modalHeader.appendChild(closeBtn);
+
+    
 }
 
 function addTaskToTable(newTask, table){
