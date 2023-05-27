@@ -76,7 +76,7 @@ export class TaskTable{
         tr.appendChild(th5);
 
         const removeAllBtn = document.createElement('button');
-        removeAllBtn.id = 'remove-all-btn';
+        removeAllBtn.id = 'remove-selected-btn';
         removeAllBtn.type = 'button';
         removeAllBtn.className = 'btn btn-danger';
         th5.appendChild(removeAllBtn);

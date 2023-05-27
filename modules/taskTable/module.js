@@ -1,6 +1,6 @@
 import Task from './Task.js'
 import TaskTable from './TaskTable.js'
-import { checkAllSelectors, uncheckAllSelectors } from './SelectorCheckBoxManager.js';
+import { selectorInit } from './selectTask/SelectorCheckBoxManager.js';
 
 export function TableInit(){
     const taskTable = new TaskTable();
@@ -10,7 +10,6 @@ export function TableInit(){
     addButtonListeners();
 
 }
-
 
 function loadSampleData(table){
     /*sample data*/
@@ -36,28 +35,20 @@ function loadSampleData(table){
 //add all button listeners
 function addButtonListeners(){
     const addNewTaskBtn = document.getElementById('add-new-task-btn');
-    const selectAllCheckBox = document.getElementById('select-all-checkbox');
-    const removeAllBtn = document.getElementById('remove-all-btn');
 
+    //Add new task to the table
     addNewTaskBtn.addEventListener('click', ()=>{
         console.log('Add new task');
         const newTask = new Task(false, 'Temp');
         taskTable.appendTaskToTable(newTask, taskTable.taskList.length);
     });
+    const selectAllCheckBox = document.getElementById('select-all-checkbox');
     
-    selectAllCheckBox.addEventListener('click', (event)=>{
-        if(event.target.checked){
-            //toggle all selector as checked
-            checkAllSelectors();
-        }else{
-            //toggle all selector as unchecked
-            uncheckAllSelectors();
-        }
+    selectorInit();
     
-    })
-    //uncheck when one of all selector is unchecked
-    
-    removeAllBtn.addEventListener('click', ()=>{
+    //remove selected tasks
+    const removeSelectedBtn = document.getElementById('remove-selected-btn');
+    removeSelectedBtn.addEventListener('click', ()=>{
         alert('Are you sure to remove all selected items?');
     });
     
