@@ -1,23 +1,24 @@
-import Task from './Task.js'
-import TaskTable from './TaskTable.js'
-import { selectorInit } from './selectTask/SelectorCheckBoxManager.js';
+import Task from './Task.js';
+import TaskTable from './TaskTable.js';
+import { addTaskInit } from './addNewTask/addNewTaskManager.js';
+import { selectorInit } from './selectTask/SelectorManager.js';
 
 export function TableInit(){
     const taskTable = new TaskTable();
     taskTable.createTaskTableUI();
 
     loadSampleData(taskTable);
-    addButtonListeners();
+    addButtonListeners(taskTable);
 
 }
 
 function loadSampleData(table){
     /*sample data*/
-    const task1 = new Task(false, 'test1');
-    const task2 = new Task(false, 'test2');
-    const task3 = new Task(false, 'test3');
-    const task4 = new Task(false, 'test4');
-    const task5 = new Task(false, 'test5');
+    const task1 = new Task(false, false, 'test1');
+    const task2 = new Task(false, false, 'test2');
+    const task3 = new Task(true, true, 'test3');
+    const task4 = new Task(false, false, 'test4');
+    const task5 = new Task(false, false, 'test5');
     
     const tempTaskList = [];
     tempTaskList.push(task1);
@@ -33,17 +34,11 @@ function loadSampleData(table){
 }
 
 //add all button listeners
-function addButtonListeners(){
-    const addNewTaskBtn = document.getElementById('add-new-task-btn');
+function addButtonListeners(table){
 
     //Add new task to the table
-    addNewTaskBtn.addEventListener('click', ()=>{
-        console.log('Add new task');
-        const newTask = new Task(false, 'Temp');
-        taskTable.appendTaskToTable(newTask, taskTable.taskList.length);
-    });
-    const selectAllCheckBox = document.getElementById('select-all-checkbox');
-    
+    addTaskInit(table);
+
     selectorInit();
     
     //remove selected tasks

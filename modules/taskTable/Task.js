@@ -1,6 +1,6 @@
 class Task{
-    constructor(checkState, description){
-        this.selectState = false;
+    constructor(selectState, checkState, description){
+        this.selectState = selectState;
         this.checkState = checkState;
         this.description = description;
     }

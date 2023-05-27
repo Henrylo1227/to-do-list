@@ -39,7 +39,7 @@ export class TaskTable{
         selectAllBox.id = 'select-all-checkbox';
         selectAllBox.className = 'form-check-input';
         selectAllBox.type = 'checkbox';
-        selectAllBox.value = '';
+        selectAllBox.checked = false;
         selectAllBox.ariaLabel = 'select all items';
         th1.appendChild(selectAllBox);
 
