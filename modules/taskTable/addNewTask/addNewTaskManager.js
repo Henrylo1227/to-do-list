@@ -6,44 +6,32 @@ function addTaskInit(table){
     const addNewTaskBtn = document.getElementById('add-new-task-btn');
 
     addNewTaskBtn.addEventListener('click', ()=>{
-        createNewTaskModalForm();
-        const newTask = new Task(false, false, 'Temp');
-        addTaskToTable(newTask, table);
+        showCreateNewTaskModalForm(table);
     });
     
 }
 
 //create a modal form to collect infomation on new task
-function createNewTaskModalForm(){
-    const modal = document.createElement('div');
-    modal.className = 'create-new-task-modal';
-    modal.tabIndex = '-1';
-    modal.role = 'dialog';
+function showCreateNewTaskModalForm(table){
+    $('#addTaskModal').modal('show');
+    const createTaskBtn = document.getElementById('createTaskBtn');
+    const taskDescriptionInput = document.getElementById('taskDescription');
     
-    const modalDialog = document.createElement('div');
-    modal.id = 'create-new-task-modal-dialog';
-    modalDialog.role = 'document';
-    modal.appendChild(modalDialog);
+    createTaskBtn.addEventListener('click', () => {
+    const taskDescription = taskDescriptionInput.value;
+    if (taskDescription.trim() !== '') {
+        // Perform task creation logic here
+        console.log('Creating task:', taskDescription);
+        const newTask = new Task(false, false, taskDescription.trim());
+        addTaskToTable(newTask, table);
 
-    const modalContent = document.createElement('div');
-    modal.id = 'create-new-task-modal-content';
-    modalDialog.appendChild(modalContent);
+        // Reset the input field
+        taskDescriptionInput.value = '';
 
-    const modalHeader = document.createElement('div');
-    modal.id = 'create-new-task-modal-header';
-    modalContent.appendChild(modalHeader);
-
-    const modalTitle = document.createElement('h5');
-    modalTitle.id = 'create-new-task-modal-title';
-    modalHeader.appendChild(modalTitle);
-
-    const closeBtn = document.createElement('button');
-    closeBtn.id = "create-new-task-modal-title";
-    closeBtn.className = 'close';
-    closeBtn.ariaLabel = 'Close';
-    modalHeader.appendChild(closeBtn);
-
-    
+        // Close the modal
+        $('#addTaskModal').modal('hide');
+    }
+    });
 }
 
 function addTaskToTable(newTask, table){
