@@ -21,7 +21,7 @@ export class TaskTable{
         itemTableRow.className = 'row';
 
         const itemTable = document.createElement('table');
-        itemTable.className = 'table table-striped';
+        itemTable.className = 'table table-hover';
         itemTableRow.appendChild(itemTable);
 
         const thead = document.createElement('thead');
@@ -35,13 +35,13 @@ export class TaskTable{
         th1.scope = 'col';
         tr.appendChild(th1);
 
-        const checkAllbox = document.createElement('input');
-        checkAllbox.id = 'check-all-checkbox';
-        checkAllbox.className = 'form-check-input';
-        checkAllbox.type = 'checkbox';
-        checkAllbox.value = '';
-        checkAllbox.ariaLabel = 'check all items';
-        th1.appendChild(checkAllbox);
+        const selectAllBox = document.createElement('input');
+        selectAllBox.id = 'select-all-checkbox';
+        selectAllBox.className = 'form-check-input';
+        selectAllBox.type = 'checkbox';
+        selectAllBox.value = '';
+        selectAllBox.ariaLabel = 'select all items';
+        th1.appendChild(selectAllBox);
 
         const th2 = document.createElement('th');
         th2.className = 'col-sm-1';
@@ -96,6 +96,7 @@ export class TaskTable{
         itemTable.appendChild(tableBody);
     }
 
+    //create task row in the talbe with task[Object] and its object id
     createTaskUI(task, id){
         const tr = document.createElement('tr');
         //select checkbox
