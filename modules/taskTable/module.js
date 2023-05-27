@@ -1,6 +1,6 @@
 import Task from './Task.js';
 import TaskTable from './TaskTable.js';
-import { addTaskInit } from './addNewTask/addNewTaskManager.js';
+import { addTaskInit } from './addNewTask/AddNewTaskManager.js';
 import { selectorInit } from './selectTask/SelectorManager.js';
 
 export function TableInit(){
