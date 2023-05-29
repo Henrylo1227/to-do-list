@@ -14,10 +14,8 @@ export class TaskTable {
     appendTaskToTable(task, id) {
       this.taskList.push(task);
       this.createTaskUI(task, id);
-      // add check btn listener
-      this.attachCheckTaskBtnListener('check-' + id);
-      // add del button listener //TO-DO
-      this.attachDelTaskBtnListener('del-' + id);
+      this.attachCheckTaskBtnListener(id);
+      this.attachDelTaskBtnListener(id);
     }
   
     // create empty task table with headings and an empty body
@@ -96,7 +94,7 @@ export class TaskTable {
         .addClass('form-check-input')
         .attr('type', 'checkbox')
         .val(task.getSelectState().toString())
-        .attr('aria-label', 'check the item: ' + id.toString());
+        .attr('aria-label', 'check the item: ' + id);
       selectCheckBoxTd.append(taskSelectCheckbox);
   
       // #id
@@ -121,7 +119,7 @@ export class TaskTable {
         .attr('type', 'button')
         .addClass('btn btn-light')
         .attr('aria-label', 'check task: ' + task.getDescription());
-      const taskCheckBtnId = 'check-' + id.toString();
+      const taskCheckBtnId = 'check-' + id;
       taskCheckBtn.attr('id', taskCheckBtnId);
       taskCheckTd.append(taskCheckBtn);
   
@@ -136,7 +134,7 @@ export class TaskTable {
         .attr('type', 'button')
         .addClass('btn btn-light')
         .attr('aria-label', 'remove task: ' + task.getDescription());
-      const delBtnId = 'del-' + id.toString();
+      const delBtnId = 'del-' + id;
       taskDelBtn.attr('id', delBtnId);
       taskDelTd.append(taskDelBtn);
   
@@ -149,33 +147,30 @@ export class TaskTable {
     }
 
     //check / uncheck single task
-    attachCheckTaskBtnListener(btnId){
-      const btn = $('#' + btnId);
+    attachCheckTaskBtnListener(taskId){
+      const btn = $('#check-' + taskId);
       if (btn != null){
         console.log('Attach check btn listener');
         btn.on('click', ()=>{
-          // the taskId of the checked item
-          const checkTaskId = btnId.slice(6); // remove "check-"
-          checkATask(this, checkTaskId);
+          checkATask(this, taskId);
         });
       } else {
-        console.log('btn object is null, btnId: ' + btnId);
+        console.log('btn object is null, taskId: ' + taskId);
         console.log(this.taskList);
       }
     }
   
     //remove / delete single task
-    attachDelTaskBtnListener(btnId) {
-      const btn = $('#' + btnId);
+    attachDelTaskBtnListener(taskId) {
+      const btn = $('#del-' + taskId);
       if (btn != null) {
         btn.on('click', () => {
           // the taskId of the deleted item
-          const delTaskId = btnId.slice(4); // remove "del-"
-          removeATask(this, delTaskId);  
+          removeATask(this, taskId);  
         
         });
       } else {
-        console.log('btn object is null, btnId: ' + btnId);
+        console.log('btn object is null, taskId: ' + taskId);
         console.log(this.taskList);
       }
     }
@@ -185,11 +180,12 @@ export class TaskTable {
       const tableBody = $('#table-body');
       tableBody.empty();
       this.taskList.forEach((task, index) => {
+        //index as taskId
         this.createTaskUI(task, index);
         //check
-        this.attachCheckTaskBtnListener('check-' + index);
+        this.attachCheckTaskBtnListener(index);
         //del
-        this.attachDelTaskBtnListener('del-' + index);
+        this.attachDelTaskBtnListener(index);
       });
     }
   }
