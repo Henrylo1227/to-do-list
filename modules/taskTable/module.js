@@ -1,6 +1,7 @@
 import Task from './Task.js';
 import TaskTable from './TaskTable.js';
 import { addTaskInit } from './addNewTask/AddNewTaskManager.js';
+import { removeTaskInit } from './removeTask/removeTaskManager.js';
 import { selectorInit } from './selectTask/SelectorManager.js';
 
 export function TableInit(){
@@ -8,7 +9,7 @@ export function TableInit(){
     taskTable.createTaskTableUI();
 
     loadSampleData(taskTable);
-    addButtonListeners(taskTable);
+    loadModules(taskTable);
 
 }
 
@@ -34,17 +35,19 @@ function loadSampleData(table){
 }
 
 //add all button listeners
-function addButtonListeners(table){
+function loadModules(table){
 
-    //Add new task to the table
+    //addNewTask Module
     addTaskInit(table);
 
+    //selectTask Module
     selectorInit();
     
-    //remove selected tasks
-    const removeSelectedBtn = document.getElementById('remove-selected-btn');
-    removeSelectedBtn.addEventListener('click', ()=>{
-        alert('Are you sure to remove all selected items?');
-    });
+    //removeTask Module
+    removeTaskInit(table);
+
+    //checkTask Module
+    
+
     
 }

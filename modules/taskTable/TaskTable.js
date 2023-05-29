@@ -1,3 +1,4 @@
+import { removeATask } from "./removeTask/removeTaskManager.js";
 export class TaskTable {
     constructor() {
       this.taskList = [];
@@ -143,28 +144,13 @@ export class TaskTable {
         btn.on('click', () => {
           // the taskId of the deleted item
           const delTaskId = btnId.slice(4); // remove "del-"
-          this.removeTask(delTaskId);
-          // TODO: Update database
-  
-          // update the UI
-          this.reloadTableUI();
+          removeATask(this, delTaskId);  
+        
         });
       } else {
         console.log('btn object is null, btnId: ' + btnId);
         console.log(this.taskList);
       }
-    }
-  
-    removeTask(taskId) {
-      const tempList = [];
-      console.log(this.taskList.length);
-      for (let i = 0; i < this.taskList.length; i++) {
-        if (i != taskId) {
-          tempList.push(this.taskList[i]);
-        }
-      }
-      this.taskList = tempList;
-      console.log('new task list: ' + this.taskList);
     }
   
     // apply change

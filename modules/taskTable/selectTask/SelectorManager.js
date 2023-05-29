@@ -57,4 +57,4 @@ function uncheckAllSelectors(){
     }
 }
 
-export{selectorInit};
+export{selectorInit, getCheckedSelectorList};
