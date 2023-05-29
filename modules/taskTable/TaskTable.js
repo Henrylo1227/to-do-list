@@ -1,4 +1,6 @@
 import { removeATask } from "./removeTask/removeTaskManager.js";
+import { checkATask } from "./checkTask/checkTaskManager.js";
+import Task from "./Task.js";
 export class TaskTable {
     constructor() {
       this.taskList = [];
@@ -12,8 +14,10 @@ export class TaskTable {
     appendTaskToTable(task, id) {
       this.taskList.push(task);
       this.createTaskUI(task, id);
+      // add check btn listener
+      this.attachCheckTaskBtnListener('check-' + id);
       // add del button listener //TO-DO
-      this.attachDelTaskBtnListener('del-' + id.toString());
+      this.attachDelTaskBtnListener('del-' + id);
     }
   
     // create empty task table with headings and an empty body
@@ -49,7 +53,7 @@ export class TaskTable {
       tr.append(th4);
   
       const checkBtn = $('<button></button>')
-        .attr('id', 'check-all-btn')
+        .attr('id', 'check-selected-btn')
         .attr('type', 'button')
         .addClass('btn btn-success');
       th4.append(checkBtn);
@@ -100,7 +104,13 @@ export class TaskTable {
       tr.append(idTd);
   
       // Task description
-      const taskDescTd = $('<td></td>').text(task.getDescription());
+      const taskDescTd = $('<td></td>');
+      if (task.getCheckState()){
+        const strikedText = $('<s></s>').text(task.getDescription());
+        taskDescTd.append(strikedText);
+      }else{
+        taskDescTd.text(task.getDescription());
+      }
       tr.append(taskDescTd);
   
       // Task check btn
@@ -137,7 +147,24 @@ export class TaskTable {
       const tableBody = $('#table-body');
       tableBody.append(tr);
     }
+
+    //check / uncheck single task
+    attachCheckTaskBtnListener(btnId){
+      const btn = $('#' + btnId);
+      if (btn != null){
+        console.log('Attach check btn listener');
+        btn.on('click', ()=>{
+          // the taskId of the checked item
+          const checkTaskId = btnId.slice(6); // remove "check-"
+          checkATask(this, checkTaskId);
+        });
+      } else {
+        console.log('btn object is null, btnId: ' + btnId);
+        console.log(this.taskList);
+      }
+    }
   
+    //remove / delete single task
     attachDelTaskBtnListener(btnId) {
       const btn = $('#' + btnId);
       if (btn != null) {
@@ -159,7 +186,9 @@ export class TaskTable {
       tableBody.empty();
       this.taskList.forEach((task, index) => {
         this.createTaskUI(task, index);
-  
+        //check
+        this.attachCheckTaskBtnListener('check-' + index);
+        //del
         this.attachDelTaskBtnListener('del-' + index);
       });
     }

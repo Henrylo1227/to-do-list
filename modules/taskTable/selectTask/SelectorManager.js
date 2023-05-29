@@ -18,8 +18,7 @@ function selectorInit(){
             const selectorList = getSelectorList();
             const checkedSelectorList = getCheckedSelectorList();
             if (selectorList.length != checkedSelectorList.length){
-                const selectAllCheckBox = document.getElementById('select-all-checkbox');
-                selectAllCheckBox.checked = false;
+                $('#select-all-checkbox').checked = false;
             }
         })
     });
@@ -36,10 +35,11 @@ function getCheckedSelectorList(){
     const checkedSelectorList = [];
     const selectorList = getSelectorList();
     for (let i = 0; i < selectorList.length; i++){
-        if (selectorList[i].checked == true){
+        if (selectorList[i].id!='select-all-checkbox' && selectorList[i].checked == true){
             checkedSelectorList.push(selectorList[i]);
         }
     }
+    console.log(checkedSelectorList);
     return checkedSelectorList;
 }
 

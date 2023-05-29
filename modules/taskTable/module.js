@@ -3,6 +3,7 @@ import TaskTable from './TaskTable.js';
 import { addTaskInit } from './addNewTask/AddNewTaskManager.js';
 import { removeTaskInit } from './removeTask/removeTaskManager.js';
 import { selectorInit } from './selectTask/SelectorManager.js';
+import { checkTaskInit } from './checkTask/checkTaskManager.js';
 
 export function TableInit(){
     const taskTable = new TaskTable();
@@ -13,6 +14,7 @@ export function TableInit(){
 
 }
 
+// sample data
 function loadSampleData(table){
     /*sample data*/
     const task1 = new Task(false, false, 'test1');
@@ -34,6 +36,8 @@ function loadSampleData(table){
     /*handled right after database input*/
 }
 
+// read data from db
+
 //add all button listeners
 function loadModules(table){
 
@@ -47,7 +51,7 @@ function loadModules(table){
     removeTaskInit(table);
 
     //checkTask Module
-    
+    checkTaskInit(table);
 
     
 }

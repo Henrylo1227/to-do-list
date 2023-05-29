@@ -1,14 +1,13 @@
 import { getCheckedSelectorList } from "../selectTask/SelectorManager.js";
 function removeTaskInit(table){
-    const removeSelectedBtn = document.getElementById('remove-selected-btn');
-    removeSelectedBtn.addEventListener('click', ()=>{
-        const selectedDelTasks = getCheckedSelectorList();
+    $('#remove-selected-btn').on('click', ()=>{
+        const selectedTasks = getCheckedSelectorList();
         const selectedTaskIdList = [];
-        selectedDelTasks.forEach(element => {
-            console.log(element.id.slice(7)); 
-            selectedTaskIdList.push(element.id.slice(7)); //select-n --> n; extract the taskId from the html checkbox id 
+        selectedTasks.forEach( (e) => {
+            console.log(e.id.slice(7));
+            selectedTaskIdList.push(e.id.slice(7));//select-n --> n; extract the taskId from the html checkbox id 
         });
-        removeNTasks(table, selectedTaskIdList);
+        removeSelectedTasks(table, selectedTaskIdList);
     });
 }
 
@@ -23,12 +22,11 @@ function removeATask(table, taskId){
     }
     table.taskList = tempList;
     //Todo: update database
-
-    table.reloadTableIU();
+    table.reloadTableUI();
 }
 
 //remove a number of task with a list of taskid from table
-function removeNTasks(table, taskIdList){
+function removeSelectedTasks(table, taskIdList){
     const tempList = [];
     for (let i = 0; i < table.taskList.length; i++){
         if (!(i in taskIdList)){
