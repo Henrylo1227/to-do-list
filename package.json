@@ -1,17 +1,26 @@
 {
-  "name": "to-do-list",
-  "type": "module",
-  "version": "1.0.0",
-  "description": "simple to-do project with bootstrap",
-  "main": "index.js",
+  "name": "to-do-list_nodejs",
+  "version": "0.0.1",
+  "description": "experimental project on nodejs with to-do-list practice",
+  "main": "./src/app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha",
+    "build": "webpack"
   },
-  "author": "",
+  "keywords": [
+    "to-do",
+    "nodejs"
+  ],
+  "author": "HenryLO",
   "license": "ISC",
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^6.4.0",
-    "bootstrap": "^5.2.3",
-    "jquery": "^3.7.0"
+    "express": "^4.18.2",
+    "fortawesome": "^0.0.1-security",
+    "fs": "^0.0.1-security",
+    "mocha": "^10.2.0",
+    "webpack": "^5.85.1"
+  },
+  "devDependencies": {
+    "webpack-cli": "^5.1.3"
   }
 }
