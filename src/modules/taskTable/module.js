@@ -5,6 +5,8 @@ import { removeTaskInit } from './removeTask/removeTaskManager.js';
 import { selectorInit } from './selectTask/SelectorManager.js';
 import { checkTaskInit } from './checkTask/checkTaskManager.js';
 
+export default TaskTable;
+
 export function TableInit(){
     const taskTable = new TaskTable();
     taskTable.createTaskTableUI();

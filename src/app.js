@@ -1,3 +1,2 @@
-import { TableInit } from "./taskTable/module.js";
-
+import { TableInit } from "./modules/taskTable/module.js";
 TableInit();
