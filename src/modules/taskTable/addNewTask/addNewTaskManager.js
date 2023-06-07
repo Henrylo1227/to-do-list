@@ -1,5 +1,4 @@
-import Task from '../Task.js';
-import TaskTable from '../TaskTable.js';
+var Task = require('../Task.js')
 
 function addTaskInit(table){
 
@@ -44,4 +43,4 @@ function addTaskToTable(newTask, table){
     table.appendTaskToTable(newTask, table.taskList.length);
 }
 
-export {addTaskInit};
+module.exports = {addTaskInit};

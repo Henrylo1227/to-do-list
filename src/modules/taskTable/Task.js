@@ -1,4 +1,4 @@
-class Task{
+module.export = class Task{
     constructor(selectState, checkState, description){
         this.selectState = selectState;
         this.checkState = checkState;
@@ -26,5 +26,3 @@ class Task{
         return this.description;
     }
 }
-
-export default Task;

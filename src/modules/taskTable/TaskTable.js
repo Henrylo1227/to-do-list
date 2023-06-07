@@ -1,7 +1,7 @@
-import { removeATask } from "./removeTask/removeTaskManager.js";
-import { checkATask } from "./checkTask/checkTaskManager.js";
-import Task from "./Task.js";
-export class TaskTable {
+const removeATask = require("./removeTask/removeTaskManager.js");
+const checkATask = require("./removeTask/removeTaskManager.js");
+
+module.exports = class TaskTable {
     constructor() {
       this.taskList = [];
     }
@@ -189,6 +189,4 @@ export class TaskTable {
       });
     }
   }
-  
-  export default TaskTable;
-  
+    

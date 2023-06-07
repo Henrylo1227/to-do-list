@@ -23,7 +23,7 @@ function ServerStart(){
 
   app.get('/main.js', (req, res) => {
       res.set({'Content-Type': ''})
-      res.sendFile(path.join(__dirname, 'public','dist', 'main.js'));
+      res.sendFile(path.join(__dirname, 'src', 'app.js'));
     });
 
   // Start the server

@@ -1,2 +1,6 @@
-import { TableInit } from "./modules/taskTable/module.js";
+
+const {TableInit} = require('TaskTableModule');
+const {InitDB} = require('DatabaseModule');
+
+InitDB();
 TableInit();

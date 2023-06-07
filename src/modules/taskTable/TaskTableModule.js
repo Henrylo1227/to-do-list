@@ -1,13 +1,15 @@
-import Task from './Task.js';
-import TaskTable from './TaskTable.js';
-import { addTaskInit } from './addNewTask/AddNewTaskManager.js';
-import { removeTaskInit } from './removeTask/removeTaskManager.js';
-import { selectorInit } from './selectTask/SelectorManager.js';
-import { checkTaskInit } from './checkTask/checkTaskManager.js';
+var Task = require('./Task.js');
+var TaskTable = require('./TaskTable.js'); 
 
-export default TaskTable;
+const addTaskInit = require('./addNewTask/addNewTaskManager.js');
+const removeTaskInit = require('./removeTask/removeTaskManager.js');
+const selectorInit = require('./selectTask/SelectorManager.js');
+const checkTaskInit = require('./checkTask/checkTaskManager.js');
 
-export function TableInit(){
+
+module.exports = { TableInit }
+
+function TableInit(){
     const taskTable = new TaskTable();
     taskTable.createTaskTableUI();
 

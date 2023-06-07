@@ -1,4 +1,5 @@
-import { getCheckedSelectorList } from "../selectTask/SelectorManager.js";
+const getCheckedSelectorList = require("../selectTask/SelectorManager.js");
+
 function removeTaskInit(table){
     $('#remove-selected-btn').on('click', ()=>{
         const selectedTasks = getCheckedSelectorList();
@@ -39,4 +40,4 @@ function removeSelectedTasks(table, taskIdList){
     table.reloadTableUI();
 }
 
-export {removeTaskInit, removeATask};
+module.exports = {removeTaskInit, removeATask};

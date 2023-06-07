@@ -1,4 +1,5 @@
-import { getCheckedSelectorList } from "../selectTask/SelectorManager.js";
+const getCheckedSelectorList = require('../selectTask/SelectorManager.js');
+
 function checkTaskInit(table){
     //add check-selected-task btn listener
     $('#check-selected-btn').on('click', ()=>{
@@ -35,5 +36,4 @@ function checkSelectedTasks(table, taskIdList){
     }
     table.reloadTableUI();
 }
-
-export {checkTaskInit, checkATask};
+module.exports = {checkTaskInit, checkATask};
