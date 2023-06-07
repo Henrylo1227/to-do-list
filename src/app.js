@@ -1,6 +1,2 @@
-
-const {TableInit} = require('TaskTableModule');
-const {InitDB} = require('DatabaseModule');
-
-InitDB();
+const {TableInit} = require('./modules/taskTable/TaskTableModule');
 TableInit();

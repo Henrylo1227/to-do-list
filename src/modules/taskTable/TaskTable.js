@@ -1,7 +1,7 @@
-const removeATask = require("./removeTask/removeTaskManager.js");
-const checkATask = require("./removeTask/removeTaskManager.js");
+const {removeATask} = require("./removeTask/removeTaskManager.js");
+const {checkATask} = require("./checkTask/checkTaskManager.js");
 
-module.exports = class TaskTable {
+export class TaskTable {
     constructor() {
       this.taskList = [];
     }

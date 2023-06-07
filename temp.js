@@ -1,5 +1,3 @@
-const {InitDB} = require('./src/modules/database/DatabaseModule');
-const {TableInit} = require('./src/modules/taskTable/TaskTableModule');
+const {InitDB, InsertSampleData} = require('./src/modules/database/DatabaseModule');
 
-InitDB();
-TableInit();
+InsertSampleData();

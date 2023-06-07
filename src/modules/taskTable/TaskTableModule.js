@@ -1,10 +1,10 @@
-var Task = require('./Task.js');
-var TaskTable = require('./TaskTable.js'); 
+var {Task} = require('./Task.js');
+var {TaskTable} = require('./TaskTable.js'); 
 
-const addTaskInit = require('./addNewTask/addNewTaskManager.js');
-const removeTaskInit = require('./removeTask/removeTaskManager.js');
-const selectorInit = require('./selectTask/SelectorManager.js');
-const checkTaskInit = require('./checkTask/checkTaskManager.js');
+const {addTaskInit} = require('./addNewTask/addNewTaskManager.js');
+const {removeTaskInit} = require('./removeTask/removeTaskManager.js');
+const {selectorInit} = require('./selectTask/SelectorManager.js');
+const {checkTaskInit} = require('./checkTask/checkTaskManager.js');
 
 
 module.exports = { TableInit }

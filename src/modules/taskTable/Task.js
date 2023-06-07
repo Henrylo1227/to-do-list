@@ -1,4 +1,4 @@
-module.export = class Task{
+export class Task{
     constructor(selectState, checkState, description){
         this.selectState = selectState;
         this.checkState = checkState;
