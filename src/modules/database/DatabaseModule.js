@@ -5,9 +5,9 @@ var Promise = require('promise');
 const dbPath = './db/database.db';
 const dbModeOptions = sqlite3.OPEN_CREATE | sqlite3.OPEN_READWRITE;
 
-module.exports = { InitDB, InsertSampleData, ExtractAllRecordFromDB }
+module.exports = { InitDb, InsertSampleData, ExtractAllRecordFromDB }
 
-function InitDB() {
+function InitDb() {
     return new Promise((resolve, reject) => {
         CreateDBConnection().then((db) => {
             // Create table if the table is not exist
@@ -23,11 +23,11 @@ function InitDB() {
                     reject(error);
                     return;
                 }
-                console.log(`InitDB: Create TABLE_TASK susscessfully or it already exists`);
+                console.log(`InitDb: Create TABLE_TASK susscessfully or it already exists`);
                 resolve();
             });
             db.close();
-            console.log('InitDB: database connection closed');
+            console.log('InitDb: database connection closed');
         });
 
     });
@@ -100,3 +100,4 @@ function InsertSampleData() {
         })
     });
 }
+
