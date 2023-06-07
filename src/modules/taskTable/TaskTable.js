@@ -11,11 +11,11 @@ export class TaskTable {
       return this.taskNum;
     }
   
-    appendTaskToTable(task, id) {
+    appendTaskToTable(task, taskIndex) {
       this.taskList.push(task);
-      this.createTaskUI(task, id);
-      this.attachCheckTaskBtnListener(id);
-      this.attachDelTaskBtnListener(id);
+      this.createTaskUI(task, taskIndex);
+      this.attachCheckTaskBtnListener(taskIndex);
+      this.attachDelTaskBtnListener(taskIndex);
     }
   
     // create empty task table with headings and an empty body
@@ -80,8 +80,8 @@ export class TaskTable {
       itemTable.append(tableBody);
     }
   
-    // create task row in the table with task[Object] and its object id
-    createTaskUI(task, id) {
+    // create task row in the table with task[Object] and its object index in taskList
+    createTaskUI(task, index) {
       const tr = $('<tr></tr>');
   
       // select checkbox
@@ -89,17 +89,17 @@ export class TaskTable {
       tr.append(selectCheckBoxTd);
   
       const taskSelectCheckbox = $('<input>')
-        .attr('id', 'select-' + id)
+        .attr('id', 'select-' + index)
         .prop('checked', task.getSelectState())
         .addClass('form-check-input')
         .attr('type', 'checkbox')
         .val(task.getSelectState().toString())
-        .attr('aria-label', 'check the item: ' + id);
+        .attr('aria-label', 'check the item: ' + index);
       selectCheckBoxTd.append(taskSelectCheckbox);
   
-      // #id
-      const idTd = $('<td></td>').text(id + 1); // index to #
-      tr.append(idTd);
+      // #index
+      const uiIndex = $('<td></td>').text(index + 1); // index to #
+      tr.append(uiIndex);
   
       // Task description
       const taskDescTd = $('<td></td>');
@@ -119,7 +119,7 @@ export class TaskTable {
         .attr('type', 'button')
         .addClass('btn btn-light')
         .attr('aria-label', 'check task: ' + task.getDescription());
-      const taskCheckBtnId = 'check-' + id;
+      const taskCheckBtnId = 'check-' + index;
       taskCheckBtn.attr('id', taskCheckBtnId);
       taskCheckTd.append(taskCheckBtn);
   
@@ -134,7 +134,7 @@ export class TaskTable {
         .attr('type', 'button')
         .addClass('btn btn-light')
         .attr('aria-label', 'remove task: ' + task.getDescription());
-      const delBtnId = 'del-' + id;
+      const delBtnId = 'del-' + index;
       taskDelBtn.attr('id', delBtnId);
       taskDelTd.append(taskDelBtn);
   
@@ -147,30 +147,30 @@ export class TaskTable {
     }
 
     //check / uncheck single task
-    attachCheckTaskBtnListener(taskId){
-      const btn = $('#check-' + taskId);
+    attachCheckTaskBtnListener(taskIndex){
+      const btn = $('#check-' + taskIndex);
       if (btn != null){
         console.log('Attach check btn listener');
         btn.on('click', ()=>{
-          checkATask(this, taskId);
+          checkATask(this, taskIndex);
         });
       } else {
-        console.log('btn object is null, taskId: ' + taskId);
+        console.log('btn object is null, taskId: ' + taskIndex);
         console.log(this.taskList);
       }
     }
   
     //remove / delete single task
-    attachDelTaskBtnListener(taskId) {
-      const btn = $('#del-' + taskId);
+    attachDelTaskBtnListener(taskIndex) {
+      const btn = $('#del-' + taskIndex);
       if (btn != null) {
         btn.on('click', () => {
           // the taskId of the deleted item
-          removeATask(this, taskId);  
+          removeATask(this, taskIndex);  
         
         });
       } else {
-        console.log('btn object is null, taskId: ' + taskId);
+        console.log('btn object is null, taskId: ' + taskIndex);
         console.log(this.taskList);
       }
     }

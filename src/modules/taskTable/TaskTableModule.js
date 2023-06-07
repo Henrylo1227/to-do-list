@@ -21,11 +21,11 @@ function TableInit(){
 // sample data
 function loadSampleData(table){
     /*sample data*/
-    const task1 = new Task(false, false, 'test1');
-    const task2 = new Task(false, false, 'test2');
-    const task3 = new Task(true, true, 'test3');
-    const task4 = new Task(false, false, 'test4');
-    const task5 = new Task(false, false, 'test5');
+    const task1 = new Task("01",false, false, 'test1');
+    const task2 = new Task("04",false, false, 'test2');
+    const task3 = new Task("02",true, true, 'test3');
+    const task4 = new Task("24",false, false, 'test4');
+    const task5 = new Task("ok",false, false, 'test5');
     
     const tempTaskList = [];
     tempTaskList.push(task1);
