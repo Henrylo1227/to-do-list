@@ -6,12 +6,25 @@ const {removeTaskInit} = require('./removeTask/removeTaskManager.js');
 const {selectorInit} = require('./selectTask/SelectorManager.js');
 const {checkTaskInit} = require('./checkTask/checkTaskManager.js');
 
+const axios = require('./../../../node_modules/axios/dist/browser/axios.cjs');
 
 module.exports = { TableInit }
 
 function TableInit(){
     const taskTable = new TaskTable();
     taskTable.createTaskTableUI();
+
+    // data
+    //retrieve task data from database
+    axios('/data/taskTable').then( (res)=>{
+        console.log(`TableInit: successfully retrieve table data: ${res.data}`);
+        const dataList = res.data;
+        console.log(dataList);
+        loadDataFromList(taskTable, dataList);
+    }).catch((error)=>{
+        console.error(`TableInit: failed to retrieve table data: ${error.message}`);
+    });
+
 
     //loadSampleData(taskTable);
     loadModules(taskTable);
@@ -20,8 +33,12 @@ function TableInit(){
 
 
 //TODO: load data from database
-function loadDataFromJson(table, json){
-}
+function loadDataFromList(table, dataList){
+    dataList.forEach((task, index)=>{
+        const tempTask = new Task(task.task_id, false, task.check_status, task.description);
+        table.appendTaskToTable(tempTask, index);
+    });
+}   
 
 // sample data
 function loadSampleData(table){
