@@ -1,11 +1,12 @@
 const sqlite3 = require('sqlite3').verbose();
 var Promise = require('promise');
+const { Database } = require('sqlite3');
 
 // specifiy the database path and mode option
 const dbPath = './db/database.db';
 const dbModeOptions = sqlite3.OPEN_CREATE | sqlite3.OPEN_READWRITE;
 
-module.exports = { InitDb, InsertSampleData, ExtractAllRecordFromDB }
+module.exports = { InitDb, InsertSampleData, ExtractAllFromTable, InsertATask }
 
 function InitDb() {
     return new Promise((resolve, reject) => {
@@ -51,27 +52,22 @@ function CreateDBConnection() {
     });
 }
 
-function ExtractAllRecordFromDB () {
+function ExtractAllFromTable (tableName) {
     return new Promise((resolve, reject) => {
         CreateDBConnection().then((db) => {
-            db.all("select * from TABLE_TASK order by task_id",
+            db.all(`select * from ${tableName}`,
                 (error, rows) => {
                     if (error) {
                         console.error(`ExtractAllRecordFromDB: operation failed: ${error.message}`);
                         reject(error);
                         return;
                     }
-
-                    rows.forEach(row => console.log(` 
-                    task_id:${row.task_id}, 
-                    check_status:${row.check_status}, 
-                    description: ${row.description}`));
                     db.close();
-                    console.log('ExtractAllRecordFromDB: database connection closed');
-                    resolve();
+                    console.log('ExtractAllFromTable: database connection closed');
+                    resolve(rows);
                 });
         }).catch((error) => {
-            console.error(`ExtractAllRecordFromDB: database connection failed: ${error.message}`);
+            console.error(`ExtractAllFromTable: database connection failed: ${error.message}`);
             reject(error);
         });
     });
@@ -94,10 +90,35 @@ function InsertSampleData() {
                 resolve();
             });
         }).catch((error) => {
-            console.error(`InserSampleData: db connection failed: ${error.message}`);
+            console.error(`InsertSampleData: db connection failed: ${error.message}`);
             reject(error);
             return;
         })
     });
 }
 
+function InsertATask(taskId, description){
+    return new Promise((resolve, reject) => {
+        CreateDBConnection().then((db) => {
+            const sql = `insert into TABLE_TASK values ("${taskId}", false, "${description}");`;
+            try{
+                db.run(sql,
+                    (error) =>{
+                        if (error) {
+                            console.error(`InsertATask: failed to insert a task ${error.message}`);
+                            reject(error);
+                            return;
+                        }
+                });
+                resolve();
+            } finally {
+                console.log('InsertATask: database connection closed');
+                db.close();
+            }
+        }).catch((error) => {
+            console.error(`InsertATas: db connection faild: ${error.message}`);
+            reject(error);
+            return;
+        });
+    })
+}

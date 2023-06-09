@@ -1,3 +1,9 @@
-const {InitDb, InsertSampleData} = require('./src/modules/database/DatabaseModule');
+const {InitDb, ExtractAllFromTable, InsertSampleData, InsertATask} = require('./src/modules/database/DatabaseModule');
 
-InsertSampleData();
+
+async function FromDb(){
+    var result = await ExtractAllFromTable("TABLE_TASK");
+    console.log(result);
+}
+
+FromDb();

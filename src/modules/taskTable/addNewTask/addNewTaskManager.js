@@ -26,7 +26,7 @@ function showCreateNewTaskModalForm(table){
         const taskDescription = taskDescriptionInput.value;
         if (taskDescription.trim() !== '') {
             // Perform task creation logic here
-            const newTask = new Task(false, false, taskDescription.trim());
+            const newTask = new Task(false, false, taskDescription.trim()); //TODO: insert new record to db
             addTaskToTable(newTask, table);
 
             // Reset the input field

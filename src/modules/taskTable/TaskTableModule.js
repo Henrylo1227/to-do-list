@@ -13,9 +13,14 @@ function TableInit(){
     const taskTable = new TaskTable();
     taskTable.createTaskTableUI();
 
-    loadSampleData(taskTable);
+    //loadSampleData(taskTable);
     loadModules(taskTable);
 
+}
+
+
+//TODO: load data from database
+function loadDataFromJson(table, json){
 }
 
 // sample data
@@ -56,6 +61,5 @@ function loadModules(table){
 
     //checkTask Module
     checkTaskInit(table);
-
     
 }
