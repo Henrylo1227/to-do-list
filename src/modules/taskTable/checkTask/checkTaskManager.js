@@ -18,9 +18,9 @@ function checkTaskInit(table){
 //check a single task in the table
 function checkATask(table, taskId){
     console.log('checkATask: checking a task with taskId: '+taskId);
-    console.log('\ttask checked status (before): '+table.taskList[taskId].getCheckState());
+    console.log('\ttask checked state (before): '+table.taskList[taskId].getCheckState());
     table.taskList[taskId].toggleCheckState();
-    console.log('\ttask checked status (after): '+table.taskList[taskId].getCheckState());
+    console.log('\ttask checked state (after): '+table.taskList[taskId].getCheckState());
     //table.taskList[taskId]
     table.reloadTableUI();
 
@@ -30,9 +30,9 @@ function checkSelectedTasks(table, taskIdList){
     for (let i = 0; i < taskIdList.length; i++){
         let taskId = taskIdList[i];
         console.log('checkATask: checking a task with taskId: '+taskId);
-        console.log('\ttask checked status (before): '+table.taskList[taskId].getCheckState());
+        console.log('\ttask checked state (before): '+table.taskList[taskId].getCheckState());
         table.taskList[taskId].toggleCheckState();
-        console.log('\ttask checked status (after): '+table.taskList[taskId].getCheckState());
+        console.log('\ttask checked state (after): '+table.taskList[taskId].getCheckState());
     }
     table.reloadTableUI();
 }

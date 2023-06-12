@@ -14,7 +14,16 @@ function TableInit(){
     const taskTable = new TaskTable();
     taskTable.createTaskTableUI();
 
-    // data
+    //Data    
+    LoadData(taskTable)
+    //UI
+    LoadModules(taskTable);
+
+}
+
+
+//TODO: load data from database
+function LoadData(taskTable){
     //retrieve task data from database
     axios('/data/taskTable').then( (res)=>{
         console.log(`TableInit: successfully retrieve table data: ${res.data}`);
@@ -24,23 +33,16 @@ function TableInit(){
     }).catch((error)=>{
         console.error(`TableInit: failed to retrieve table data: ${error.message}`);
     });
-
-
-    //loadSampleData(taskTable);
-    loadModules(taskTable);
-
 }
 
-
-//TODO: load data from database
 function loadDataFromList(table, dataList){
     dataList.forEach((task, index)=>{
-        const tempTask = new Task(task.task_id, false, task.check_status, task.description);
+        const tempTask = new Task(task.task_id, false, task.check_state, task.description);
         table.appendTaskToTable(tempTask, index);
     });
 }   
 
-// sample data
+// sample data, client-local data
 function loadSampleData(table){
     /*sample data*/
     const task1 = new Task("01",false, false, 'test1');
@@ -56,16 +58,13 @@ function loadSampleData(table){
     tempTaskList.push(task4);
     tempTaskList.push(task5);
     //add sample data to the table
-    tempTaskList.forEach( (task, index) => { 
-        table.appendTaskToTable(task, index);
-    });
-    /*handled right after database input*/
+    loadDataFromList(table, tempTaskList);
 }
 
 // read data from db
 
 //add all button listeners
-function loadModules(table){
+function LoadModules(table){
 
     //addNewTask Module
     addTaskInit(table);
