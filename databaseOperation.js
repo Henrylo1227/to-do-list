@@ -4,10 +4,9 @@ const sqlite3 = require('sqlite3').verbose();
 
 async function TestDb() {
 
-    const dbPath = './db/database.db';
-    const dbModeOptions = sqlite3.OPEN_CREATE | sqlite3.OPEN_READWRITE;
+    const sql = 'SELECT * FROM TABLE_TASK WHERE TASK_ID = "02"';
 
-    const dbManager = new DatabaseManager(dbPath, dbModeOptions);
-    dbManager.initializeDatabase();
+    const queryResult = await DatabaseModule.executeDbQuery(DatabaseModule.GET, sql);
+    console.log(queryResult);
 }
 TestDb();
