@@ -1,15 +1,26 @@
-const { InitDb, ExtractAllFromTable } = require('./src/modules/database/DatabaseModule')
+const { DatabaseManager } = require('./src/modules/database/DatabaseManagerModule')
 
+const sqlite3 = require('sqlite3');
 const { log } = require('console');
 const express = require('express');
 
-InitDb();
+// configs // TODO: Should be import from a config file
+
+// server config 
+const hostname = '127.0.0.1';
+const port = 3000;
+
+
+// database config
+const dbPath = "./db/database.db";
+const dbModeOption = sqlite3.OPEN_CREATE | sqlite3.OPEN_READWRITE;
+
+
+const database = new DatabaseManager(dbPath, dbModeOption);
+database.initializeDatabase();
 Server();
 
 function Server() {
-  //server setting
-  const hostname = '127.0.0.1';
-  const port = 3000;
 
   const app = express();
   const path = require('path');
@@ -41,7 +52,7 @@ function Server() {
 
   app.get('/data/taskTable', async (req, res) => {
     console.log('Server: "GET/data/taskTable.js" request received...');
-    const dataJson = await ExtractAllFromTable('TABLE_TASK');
+    const dataJson = await database.extractAllFromTable('TABLE_TASK');
     res.set({
       'Content-Type': 'application/json'
     })
