@@ -1,4 +1,4 @@
-const {DatabaseManager} = require("./src/modules/database/DatabaseManagerModule");
+const {DatabaseManager} = require("./back-end/database/DatabaseManagerModule");
 const sqlite3 = require('sqlite3').verbose();
 
 
