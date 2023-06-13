@@ -22,13 +22,12 @@ function TableInit(){
 }
 
 
-//TODO: load data from database
 function LoadData(taskTable){
-    //retrieve task data from database
+    //retrieve task data from database by sending http request to server side
     axios('/data/taskTable').then( (res)=>{
-        console.log(`TableInit: successfully retrieve table data: ${res.data}`);
+        console.debug(`TableInit: successfully retrieve table data: ${res.data}`);
         const dataList = res.data;
-        console.log(dataList);
+        console.debug(dataList);
         loadDataFromList(taskTable, dataList);
     }).catch((error)=>{
         console.error(`TableInit: failed to retrieve table data: ${error.message}`);
