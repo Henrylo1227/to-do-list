@@ -1,8 +1,9 @@
-const { DatabaseManager } = require('./src/modules/database/DatabaseManagerModule')
+const { DatabaseManager } = require('./src/databaseModule/controller/DatabaseManagerModule')
 
 const sqlite3 = require('sqlite3');
 const { log } = require('console');
 const express = require('express');
+
 
 // configs // TODO: Should be import from a config file
 
@@ -12,7 +13,7 @@ const port = 3000;
 
 
 // database config
-const dbPath = "./db/database.db";
+const dbPath = "./server/db/database.db";
 const dbModeOption = sqlite3.OPEN_CREATE | sqlite3.OPEN_READWRITE;
 
 
@@ -32,7 +33,7 @@ function Server() {
   // Define routes for the different views
   app.get('/', (req, res) => {
     console.log('Server: "GET/" request received...');
-    const filePath = path.join(__dirname, 'public', 'dist', 'index.html');
+    const filePath = path.join(__dirname,'..', 'client', 'public','dist', 'index.html');
     res.set({
       'Content-Type': 'text/html'
     })
@@ -42,7 +43,7 @@ function Server() {
 
   app.get('/main.js', (req, res) => {
     console.log('Server: "GET/main.js" request received...');
-    const filePath = path.join(__dirname, 'public', 'dist', 'main.js'); // "./public/dist/main.js"
+    const filePath = path.join(__dirname, '..','client','public', 'dist', 'main.js'); // "./public/dist/main.js"
     res.set({
       'Content-Type': 'application/javascript'
     })

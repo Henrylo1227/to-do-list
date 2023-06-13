@@ -1,4 +1,4 @@
-const {getCheckedSelectorList} = require("../selectTask/SelectorManager.js");
+const {getCheckedSelectorList} = require("./SelectorManager.js");
 
 function removeTaskInit(table){
     $('#remove-selected-btn').on('click', ()=>{

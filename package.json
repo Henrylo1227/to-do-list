@@ -5,7 +5,8 @@
   "main": "./src/app.js",
   "scripts": {
     "test": "mocha",
-    "build": "webpack"
+    "build-client": "webpack",
+    "server": "node ./server/server.js"
   },
   "keywords": [
     "to-do",

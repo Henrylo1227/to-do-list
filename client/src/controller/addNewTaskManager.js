@@ -1,4 +1,4 @@
-var {Task} = require('../Task.js')
+var {Task} = require('../TaskTableModule/component/Task.js')
 
 function addTaskInit(table){
 

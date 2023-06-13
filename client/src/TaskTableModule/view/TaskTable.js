@@ -1,5 +1,5 @@
-const {removeATask} = require("./removeTask/removeTaskManager.js");
-const {checkATask} = require("./checkTask/checkTaskManager.js");
+const {removeATask} = require("../controller/removeTaskManager");
+const {checkATask} = require("../controller/checkTaskManager");
 
 export class TaskTable {
     constructor() {

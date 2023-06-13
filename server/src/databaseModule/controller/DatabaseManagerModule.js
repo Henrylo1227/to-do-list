@@ -1,7 +1,7 @@
 const sqlite3 = require('sqlite3').verbose();
 var Promise = require('promise');
 
-const DatabaseModule = require("./DatabaseModule");
+const DatabaseModule = require("../model/DatabaseModule");
 
 // specifiy the database path and mode option
 const dbPath = './db/database.db';

@@ -1,4 +1,4 @@
-const {getCheckedSelectorList} = require('../selectTask/SelectorManager.js');
+const {getCheckedSelectorList} = require('./SelectorManager.js');
 
 function checkTaskInit(table){
     //add check-selected-task btn listener
