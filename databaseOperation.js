@@ -1,7 +1,11 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 const {DatabaseManager} = require("./back-end/databaseModule/DatabaseManagerModule");
 const sqlite3 = require('sqlite3').verbose();
 
+=======
+const DatabaseModule = require("./src/modules/database/DatabaseModule");
+>>>>>>> parent of c827ac5 (Implemented DatabaseManagerModule)
 =======
 const DatabaseModule = require("./src/modules/database/DatabaseModule");
 >>>>>>> parent of c827ac5 (Implemented DatabaseManagerModule)
