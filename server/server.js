@@ -1,24 +1,18 @@
-const { DatabaseManager } = require('./src/databaseModule/controller/DatabaseManagerModule')
-
-const sqlite3 = require('sqlite3');
-const { log } = require('console');
+const { ToDoDbManager } = require('./src/manager/ToDoDbManager')
+const config = require('./config');
 const express = require('express');
 
+// configs
+// server
+const hostname = config.server.hostname;
+const port = config.server.port;
+// database 
+const dbPath = config.database.path;
+const dbOperationMode = config.database.operationMode;
 
-// configs // TODO: Should be import from a config file
+const toDoDbManager = new ToDoDbManager(dbPath, dbOperationMode);
 
-// server config 
-const hostname = '127.0.0.1';
-const port = 3000;
-
-
-// database config
-const dbPath = "./server/db/database.db";
-const dbModeOption = sqlite3.OPEN_CREATE | sqlite3.OPEN_READWRITE;
-
-
-const database = new DatabaseManager(dbPath, dbModeOption);
-database.initializeDatabase();
+toDoDbManager.initializeDatabase();
 Server();
 
 function Server() {
@@ -26,43 +20,44 @@ function Server() {
   const app = express();
   const path = require('path');
 
-  log(__dirname);
-  // Set the static folder to serve HTML, CSS, and JavaScript files
-  app.use(express.static(path.join(__dirname, 'public')));
+  app.use(express.static(path.join(__dirname, 'public')));  
 
-  // Define routes for the different views
+  // root
+  // index.html
   app.get('/', (req, res) => {
-    console.log('Server: "GET/" request received...');
-    const filePath = path.join(__dirname,'..', 'client', 'public','dist', 'index.html');
+    console.debug('Server: "GET/" request received...');
+    const filePath = path.join(__dirname,'..', 'public','dist', 'index.html');
     res.set({
       'Content-Type': 'text/html'
-    })
+    });
     res.sendFile(filePath);
-    console.log(`Server: responsed file ${filePath}`);
+    console.debug(`Server: responsed file ${filePath}`);
   });
-
+  // main.js
   app.get('/main.js', (req, res) => {
     console.log('Server: "GET/main.js" request received...');
-    const filePath = path.join(__dirname, '..','client','public', 'dist', 'main.js'); // "./public/dist/main.js"
+    const filePath = path.join(__dirname, '..','public', 'dist', 'main.js'); // "./public/dist/main.js"
     res.set({
       'Content-Type': 'application/javascript'
-    })
+    });
     res.sendFile(filePath);
     console.log(`Server: responsed file ${filePath}`);
   });
 
-  app.get('/data/taskTable', async (req, res) => {
-    console.log('Server: "GET/data/taskTable.js" request received...');
-    const dataJson = await database.extractAllFromTable('TABLE_TASK');
+  // to-do application
+  // get all task 
+  app.get('/todo/all-task', async (req, res) => {
+    console.debug('Sever: "GET/todo/all-task" request received...');
+    const dataJson = await toDoDbManager.getAllTask();
     res.set({
-      'Content-Type': 'application/json'
-    })
+      'Content-Type': 'application/javascript'
+    });
     res.send(dataJson);
-    console.log(`Server: responsed content: ${dataJson}`);
+    console.debug(`Server: resposed content: ${dataJson}`);
   });
 
   // Start the server
   app.listen(port, hostname, () => {
-    console.log(`ServerStart: Server is running on http://${hostname}:${port}`);
+    console.log(`Server: Server is running on http://${hostname}:${port}`);
   });
 }

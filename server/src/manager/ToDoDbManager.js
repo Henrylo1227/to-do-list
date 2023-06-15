@@ -1,13 +1,10 @@
 const sqlite3 = require('sqlite3').verbose();
 var Promise = require('promise');
 
-const DatabaseModule = require("../model/DatabaseModule");
+const DatabaseModule = require("../../utils/DatabaseModule");
 
-// specifiy the database path and mode option
-const dbPath = './db/database.db';
-const dbModeOptions = sqlite3.OPEN_CREATE | sqlite3.OPEN_READWRITE;
+class ToDoDbManager {
 
-class DatabaseManager {
     constructor(dbPath, dbModeOptions){
         this.database = new DatabaseModule.sqlite3DatabaseConnection(dbPath, dbModeOptions);
     }
@@ -23,15 +20,16 @@ class DatabaseManager {
         console.debug('Database initialized successfully.')
     }
 
-    async extractAllFromTable(tableName) {
+    async getAllTask() {
         // configure database
-        const sql = `SELECT * FROM ${tableName};`
+        const sql = `SELECT * FROM TABLE_TASK;`
         const queryResult = await this.database.executeQuery(DatabaseModule.ALL, sql);
         console.debug(`extractAllFromTable: query result: ${queryResult}`);
         return queryResult;
     }
 
     async insertSampleData() {
+        // insert sample tasks to the database
         //create sample data
         const sqlList = [
             'insert into TABLE_TASK values ("02", false, "demo description task1");',
@@ -70,4 +68,4 @@ class DatabaseManager {
 }
 
 
-module.exports = {DatabaseManager}
+module.exports = {ToDoDbManager}
