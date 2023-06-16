@@ -1,4 +1,5 @@
 var {Task} = require('../component/Task.js')
+const axios = require('../../../../node_modules/axios/dist/browser/axios.cjs');
 
 function addTaskInit(table){
 
@@ -26,14 +27,29 @@ function showCreateNewTaskModalForm(table){
         const taskDescription = taskDescriptionInput.value;
         if (taskDescription.trim() !== '') {
             // Perform task creation logic here
-            const newTask = new Task(false, false, taskDescription.trim()); //TODO: insert new record to db
-            addTaskToTable(newTask, table);
+            const newTask = new Task("temp", false, false, taskDescription.trim()); //TODO: insert new record to db
+            axios({
+                method: 'post',
+                url: '/todo/add-task',
+                data: {
+                    description: taskDescription.trim(),
+                }
+            }).then(()=>{
+                // on success
+                
+                // show in notification
+                addTaskToTable(newTask, table);
+    
+                // Reset the input field
+                taskDescriptionInput.value = '';
+    
+                // Close the modal
+                $('#addTaskModal').modal('hide');
 
-            // Reset the input field
-            taskDescriptionInput.value = '';
+            }).catch(() => {
+                // show error
 
-            // Close the modal
-            $('#addTaskModal').modal('hide');
+            });
         }  
     });
 
