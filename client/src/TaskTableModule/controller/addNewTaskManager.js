@@ -1,12 +1,13 @@
 var {Task} = require('../component/Task.js')
 const axios = require('../../../../node_modules/axios/dist/browser/axios.cjs');
+const { MyAlert, SUCCESS, FAILURE } = require('../../AlertModule/model/myAlert.js');
 
-function addTaskInit(table){
+function addTaskInit(table, alertController){
 
     const addNewTaskBtn = document.getElementById('add-new-task-btn');
 
     addNewTaskBtn.addEventListener('click', ()=>{
-        showCreateNewTaskModalForm(table);
+        showCreateNewTaskModalForm(table, alertController);
     });
     
 }
@@ -27,7 +28,7 @@ function showCreateNewTaskModalForm(table){
         const taskDescription = taskDescriptionInput.value;
         if (taskDescription.trim() !== '') {
             // Perform task creation logic here
-            const newTask = new Task("temp", false, false, taskDescription.trim()); //TODO: insert new record to db
+            const newTask = new Task("temp", false, false, taskDescription.trim());
             axios({
                 method: 'post',
                 url: '/todo/add-task',
@@ -46,9 +47,15 @@ function showCreateNewTaskModalForm(table){
                 // Close the modal
                 $('#addTaskModal').modal('hide');
 
-            }).catch(() => {
-                // show error
 
+                // alert
+                const alert = new MyAlert(SUCCESS, `Task ${description} is added`);
+                alertController.addAlert(alert);
+
+            }).catch(() => {
+                // alert
+                const alert = new MyAlert(FAILURE, `Failed to create new task`);
+                console.debug('failed to create new task')
             });
         }  
     });

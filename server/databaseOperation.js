@@ -1,13 +1,15 @@
-const {ToDoDbManager} = require("./src/manager/ToDoDbManager");
-const {DatabaseModule} = require("./utils/DatabaseModule");
-const sqlite3 = require('sqlite3').verbose();
+const {CONNECT_ERROR, SUCCESS, FAILURE, MyAlert} = require("../client/src/AlertModule/model/MyAlert")
 
-async function TestDb() {
+const delay = ms => new Promise(res => setTimeout(res, ms));
 
-    const sql = 'SELECT * FROM TABLE_TASK WHERE TASK_ID = "02"';
-    const toDoDbManager = new ToDoDbManager();
 
+async function testss(){
+    const a1 = new MyAlert(SUCCESS, "tesmp");
+
+    a1.setExpiredCounter();
+    await delay(10000);
+    console.log('done');
 }
 
 
-TestDb();
+testss();

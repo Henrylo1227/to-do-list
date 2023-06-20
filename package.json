@@ -15,6 +15,7 @@
   "author": "HenryLO",
   "license": "ISC",
   "dependencies": {
+    "@datastructures-js/queue": "^4.2.3",
     "axios": "^1.4.0",
     "body-parser": "^1.20.2",
     "express": "^4.18.2",

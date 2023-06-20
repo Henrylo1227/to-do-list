@@ -7,23 +7,28 @@ const {selectorInit} = require('../controller/SelectorManager.js');
 const {checkTaskInit} = require('../controller/checkTaskManager.js');
 
 const axios = require('../../../../node_modules/axios/dist/browser/axios.cjs');
+const AlertController = require('../../AlertModule/controller/alertController.js');
+const { MyAlert, SUCCESS, FAILURE, CONNECT_ERROR } = require('../../AlertModule/model/myAlert.js');
 
 module.exports = { TableInit }
 
 function TableInit(){
     const taskTable = new TaskTable();
+    const alertController = new AlertController();
+    
     taskTable.createTaskTableUI();
 
-    //Data    
-    LoadData(taskTable)
-    //UI
-    LoadModules(taskTable);
+    // Data    
+    LoadData(taskTable, alertController)
+    // UI
+    LoadModules(taskTable, alertController);
 
 }
 
 
-function LoadData(taskTable){
+function LoadData(taskTable, alertController){
     //retrieve task data from database by sending http request to server side
+    
     axios('/todo/all-task')
     .then( (res)=>{
         console.debug(`TableInit: successfully retrieve table data: ${res.data}`);
@@ -31,6 +36,8 @@ function LoadData(taskTable){
         console.debug(dataList);
         loadDataFromList(taskTable, dataList);
     }).catch((error)=>{
+        const alert = new MyAlert(FAILURE, "Unable to retrieve data from database");
+        alertController.addAlert(alert);
         console.error(`TableInit: failed to retrieve table data: ${error.message}`);
     });
 }
@@ -64,18 +71,18 @@ function loadSampleData(table){
 // read data from db
 
 //add all button listeners
-function LoadModules(table){
+function LoadModules(table, alertController){
 
     //addNewTask Module
-    addTaskInit(table);
+    addTaskInit(table, alertController);
 
     //selectTask Module
     selectorInit();
     
     //removeTask Module
-    removeTaskInit(table);
+    removeTaskInit(table, alertController);
 
     //checkTask Module
-    checkTaskInit(table);
+    checkTaskInit(table, alertController);
     
 }
