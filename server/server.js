@@ -79,7 +79,6 @@ function Server() {
     const newTaskDescription = payload.description;
 
     try {
-      // Todo: automate key field generation in database
       await toDoDbManager.insertATask(newTaskDescription);
       const resJson = {
         statusDescription: "A new task is added"
@@ -93,6 +92,38 @@ function Server() {
       res.sendStatus(500);
     }
   })
+
+  // delete a task
+  app.post('/todo/remove-a-task', async (req, res) => {
+    const payload = req.body;
+    const taskId = payload.taskId;
+
+    try {
+      await toDoDbManager.removeATask(taskId);
+      const resJson = { statusDescription: `Task ${taskId} is removed` }
+      res.set({'Content-Type': 'application/json'});
+      res.send(resJson);
+    } catch (error) {
+      console.debug('server: '+ error);
+      res.sendStatus(500);
+    }
+  });
+
+  // delete a list of task
+  app.post('/todo/remove-a-list-of-task', async (req, res) => {
+    const payload = req.body;
+    const taskIdList = payload.taskIdList;
+
+    try {
+      await toDoDbManager.removeAListOfTask(taskIdList);
+      const resJson = { statusDescription: `Task ${taskIdList.join(', ')} is removed` }
+      res.set({'Content-Type': 'application/json'});
+      res.send(resJson);
+    } catch (error) {
+      console.debug('server: '+ error);
+      res.sendStatus(500);
+    }
+  });
 
   // Start the server
   app.listen(port, hostname, () => {
