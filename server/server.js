@@ -79,7 +79,8 @@ function Server() {
     const newTaskDescription = payload.description;
 
     try {
-      await toDoDbManager.insertATask("99", newTaskDescription);
+      // Todo: automate key field generation in database
+      await toDoDbManager.insertATask(newTaskDescription);
       const resJson = {
         statusDescription: "A new task is added"
       }

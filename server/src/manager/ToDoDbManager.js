@@ -13,7 +13,7 @@ class ToDoDbManager {
         // configure database
         // create table if not exist
         const sql = `CREATE TABLE IF NOT EXISTS TABLE_TASK (
-            task_id         CHAR(4)     PRIMARY KEY,
+            task_id         INTEGER     PRIMARY KEY     AUTOINCREMENT,
             check_state     BOOL,
             description     VARCHAR(20));`;
         await this.database.executeQuery(DatabaseModule.RUN, sql);
@@ -32,10 +32,10 @@ class ToDoDbManager {
         // insert sample tasks to the database
         //create sample data
         const sqlList = [
-            'insert into TABLE_TASK values ("02", false, "demo description task1");',
-            'insert into TABLE_TASK values ("12", false, "demo description task2");',
-            'insert into TABLE_TASK values ("23", false, "demo description task3");',
-            'insert into TABLE_TASK values ("34", false, "demo description task4");'
+            'insert into TABLE_TASK (Check_state, description) values (false, "demo description task1");',
+            'insert into TABLE_TASK (Check_state, description) values (false, "demo description task2");',
+            'insert into TABLE_TASK (Check_state, description) values (false, "demo description task3");',
+            'insert into TABLE_TASK (Check_state, description) values (False, "demo description task4");'
         ];
         sqlList.forEach( async (sql) =>{
             await this.database.executeQuery(DatabaseModule.RUN, sql);
@@ -43,8 +43,8 @@ class ToDoDbManager {
         console.debug('insertSampleData: Insertion completed');
     }
 
-    async insertATask(taskId, description){
-        const sql = `insert into TABLE_TASK values ("${taskId}", false, "${description}");`;
+    async insertATask(description){
+        const sql = `insert into TABLE_TASK (Check_state, description) values (false, "${description}");`;
         await this.database.executeQuery(DatabaseModule.RUN, sql);
         console.debug('insertATask: Insertion completed');
     }

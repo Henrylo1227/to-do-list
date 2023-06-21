@@ -1,69 +1,74 @@
-var {Task} = require('../component/Task.js')
+var { Task } = require('../component/Task.js')
 const axios = require('../../../../node_modules/axios/dist/browser/axios.cjs');
 const { MyAlert, SUCCESS, FAILURE } = require('../../AlertModule/model/myAlert.js');
+const { DisplayAlert } = require('../../AlertModule/controller/alertController.js')
 
-function addTaskInit(table, alertController){
+function addTaskInit(table) {
 
-    const addNewTaskBtn = document.getElementById('add-new-task-btn');
+    const addNewTaskBtn = $('#add-new-task-btn').on('click', () => {
+        showCreateNewTaskModalForm(table);
+    })
 
-    addNewTaskBtn.addEventListener('click', ()=>{
-        showCreateNewTaskModalForm(table, alertController);
-    });
-    
-}
+    // modal
+    const taskDescriptionInput = $('#taskDescription');
+    const createTaskBtn = $('#createTaskBtn').on('click', () => {
+        createTaskBtn.disabled = true;
+        const taskDescription = taskDescriptionInput.val();
+ 
 
-//create a modal form to collect infomation on new task
-function showCreateNewTaskModalForm(table){
-    $('#addTaskModal').modal('show');
-    const createTaskBtn = document.getElementById('createTaskBtn');
-    const taskDescriptionInput = document.getElementById('taskDescription');
-
-    taskDescriptionInput.addEventListener('keypress', (event) =>{
-        if (event.key === 'Enter'){
-            createTaskBtn.click();
-        }
-    });
-    
-    createTaskBtn.addEventListener('click', () => {
-        const taskDescription = taskDescriptionInput.value;
         if (taskDescription.trim() !== '') {
+            console.log(`button clicked ${taskDescription}`);
             // Perform task creation logic here
-            const newTask = new Task("temp", false, false, taskDescription.trim());
+            const newTask = new Task("fun", false, false, taskDescription.trim());
             axios({
                 method: 'post',
                 url: '/todo/add-task',
                 data: {
                     description: taskDescription.trim(),
                 }
-            }).then(()=>{
+            }).then(() => {
                 // on success
-                
+
                 // show in notification
                 addTaskToTable(newTask, table);
-    
+
                 // Reset the input field
                 taskDescriptionInput.value = '';
-    
+
                 // Close the modal
                 $('#addTaskModal').modal('hide');
 
 
                 // alert
-                const alert = new MyAlert(SUCCESS, `Task ${description} is added`);
-                alertController.addAlert(alert);
+                const alert = new MyAlert(SUCCESS, `create task ${taskDescription} successfully`);
+                DisplayAlert(alert);
+                createTaskBtn.disabled = false;
 
-            }).catch(() => {
+            }).catch((error) => {
                 // alert
-                const alert = new MyAlert(FAILURE, `Failed to create new task`);
-                console.debug('failed to create new task')
+                const alert = new MyAlert(FAILURE, `failed to create task ${taskDescription}`);
+                DisplayAlert(alert);
             });
-        }  
+        }
+
+    });
+
+    taskDescriptionInput.on('keypress', (event) => {
+        if (event.key === 'Enter') {
+            createTaskBtn.click();
+        }
     });
 
 }
 
-function addTaskToTable(newTask, table){
+//create a modal form to collect infomation on new task
+function showCreateNewTaskModalForm(table) {
+    $('#addTaskModal').modal('show');
+    const taskDescriptionInput = document.getElementById('taskDescription');
+}
+
+function addTaskToTable(newTask, table) {
     table.appendTaskToTable(newTask, table.taskList.length);
 }
 
-module.exports = {addTaskInit};
+module.exports = { addTaskInit };

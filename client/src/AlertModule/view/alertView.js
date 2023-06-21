@@ -36,18 +36,14 @@ function CreateAlertView(alert){
 
 }
 
-function AttachAllAlertView(alertViewList){
-    // TODO
-    // Attach all alertView in the alertViewList to the alertRow
+function AttachAlertView(alertView){
+    // Attach an alertView to the #alert-row
     const alertRow = $('#alert-row');
 
     // clear alerts in alert row
     alertRow.empty();
-
-    // reattach all existing alertViewList
-    alertViewList.forEach(view => {
-        alertRow.append(view);
-    });
+    console.log('empted ');
+    alertRow.append(alertView);
 }
 
-module.exports = { CreateAlertView, AttachAllAlertView };
+module.exports = { CreateAlertView, AttachAlertView };

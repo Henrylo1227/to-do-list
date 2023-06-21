@@ -14,19 +14,18 @@ module.exports = { TableInit }
 
 function TableInit(){
     const taskTable = new TaskTable();
-    const alertController = new AlertController();
     
     taskTable.createTaskTableUI();
 
     // Data    
-    LoadData(taskTable, alertController)
+    LoadData(taskTable)
     // UI
-    LoadModules(taskTable, alertController);
+    LoadModules(taskTable);
 
 }
 
 
-function LoadData(taskTable, alertController){
+function LoadData(taskTable){
     //retrieve task data from database by sending http request to server side
     
     axios('/todo/all-task')
@@ -71,18 +70,18 @@ function loadSampleData(table){
 // read data from db
 
 //add all button listeners
-function LoadModules(table, alertController){
+function LoadModules(table){
 
     //addNewTask Module
-    addTaskInit(table, alertController);
+    addTaskInit(table);
 
     //selectTask Module
     selectorInit();
     
     //removeTask Module
-    removeTaskInit(table, alertController);
+    removeTaskInit(table);
 
     //checkTask Module
-    checkTaskInit(table, alertController);
+    checkTaskInit(table);
     
 }
