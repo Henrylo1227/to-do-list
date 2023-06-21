@@ -50,9 +50,30 @@ class ToDoDbManager {
     }
 
     async removeATask(taskId){
-        const sql = `delete from TABLE_TASK where task_id="${taskId}"`;
+        const sql = `delete from TABLE_TASK where task_id="${taskId};"`;
         await this.database.executeQuery(DatabaseModule.RUN, sql);
         console.debug(`removeATask: task taskId: ${taskId} is removed`);
+    }
+
+    async removeAListOfTask(taskIdList){
+        const sqlEnd = taskIdList.join(' or ');
+        const sql = `delete from TABLE_TASK where task_id = ${sqlEnd};`;
+        await this.database.executeQuery(DatabaseModule.RUN, sql);
+        console.debug(`removeAListOfTask: task taskId: ${taskIdList.join(', ')} are checked`);
+    }
+
+    async checkAListOfTask(taskIdList){
+        const sqlEnd = taskIdList.join(' or ');
+        const sql = `update TABLE_TASK set check_state = true where task_id = ${sqlEnd};`;
+        await this.database.executeQuery(DatabaseModule.RUN, sql);
+        console.debug(`checkAListOfTask: task taskId: ${taskIdList.join(', ')} are checked`);
+    }
+
+    async uncheckAlistOfTask(taskIdList){
+        const sqlEnd = taskIdList.join(' or ');
+        const sql = `update TABLE_TASK set check_state = false where task_id = ${sqlEnd};`;
+        await this.database.executeQuery(DatabaseModule.RUN, sql);
+        console.debug(`checkAListOfTask: task taskId: ${taskIdList.join(', ')} are unchecked`);
     }
 
     async toggleCheckStateATask(taskId){
@@ -62,7 +83,8 @@ class ToDoDbManager {
                             when 0 then 1 
                             when 1 then 0 
                             else check_state
-                            end `
+                            end 
+                            where task_id = ${taskId}`
         await this.database(DatabaseModule.RUN, sql);
     }
 }
