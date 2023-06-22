@@ -1,27 +1,4 @@
 const {getCheckedSelectorList} = require("./SelectorManager.js");
-<<<<<<< HEAD
-const AlertController = require('../../AlertModule/controller/alertController.js');
-const { MyAlert, SUCCESS, FAILURE } = require('../../AlertModule/model/myAlert.js')
-const axios = require('../../../../node_modules/axios/dist/browser/axios.cjs');
-const { response } = require("express");
-const { removeATaskFromServer } = require("./loadTasksController.js");
-
-
-function attachRemoveTaskBtnListener(task, index){
-    // attach remove task btn listner for one task
-    const btn = $('#del-' + index);
-    if (btn != null) {
-      btn.on('click', () => {
-        removeATaskFromServer(task.getTaskId()).then((taskList) => {
-            // reload view
-        });
-      });
-    } else {
-      console.log('btn object is null, taskId: ' + index);
-    }
-}
-=======
->>>>>>> parent of 53e9e0c (aborts changes)
 
 function removeTaskInit(table){
     $('#remove-selected-btn').on('click', ()=>{
@@ -46,6 +23,8 @@ function removeATask(table, taskId){
     }
     table.taskList = tempList;
     //Todo: update database
+
+
     table.reloadTableUI();
 }
 

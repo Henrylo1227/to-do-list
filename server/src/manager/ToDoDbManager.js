@@ -12,10 +12,12 @@ class ToDoDbManager {
     async initializeDatabase() {
         // configure database
         // create table if not exist
-        const sql = `CREATE TABLE IF NOT EXISTS TABLE_TASK (
+        const sql = `
+            CREATE TABLE IF NOT EXISTS TABLE_TASK (
             task_id         INTEGER     PRIMARY KEY     AUTOINCREMENT,
             check_state     BOOL,
-            description     VARCHAR(20));`;
+            description     VARCHAR(20));
+            `; //TODO   
         await this.database.executeQuery(DatabaseModule.RUN, sql);
         console.debug('Database initialized successfully.')
     }
@@ -45,8 +47,16 @@ class ToDoDbManager {
 
     async insertATask(description){
         const sql = `insert into TABLE_TASK (Check_state, description) values (false, "${description}");`;
-        await this.database.executeQuery(DatabaseModule.RUN, sql);
+        const id = await this.database.insertTaskSQL(sql);
         console.debug('insertATask: Insertion completed');
+        return id;
+    }
+
+    async getLastInsertRowId(){
+        const sql = `SELECT last_insert_rowid();`
+        const lastestId = await this.database.executeQuery(DatabaseModule.GET, sql);
+        console.debug(`last_insert_rowid(): ${lastestId}`);
+        return lastestId;
     }
 
     async removeATask(taskId){

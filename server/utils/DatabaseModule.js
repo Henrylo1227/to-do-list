@@ -1,24 +1,30 @@
 const sqlite3 = require('sqlite3').verbose();
 var Promise = require('promise');
+const {
+    database
+} = require('../config');
+const {
+    resolve
+} = require('url');
 
 // operation mode
 const RUN = 1;
 const GET = 2;
 const ALL = 3;
 
-class sqlite3DatabaseConnection{    
-    
+class sqlite3DatabaseConnection {
+
     constructor(dbPath, dbModeOptions) {
         this.dbPath = dbPath;
         this.dbModeOptions = dbModeOptions;
     }
 
     //Methods
-    openConnection () {
+    openConnection() {
         // create a database connection with the configuration
         // return a promise, it contains a sqlite3 database object to perform other the database operation
-        
-        return new Promise( (resolve, reject) => {
+
+        return new Promise((resolve, reject) => {
             const database = new sqlite3.Database(
                 this.dbPath,
                 this.dbModeOptions,
@@ -36,21 +42,21 @@ class sqlite3DatabaseConnection{
             resolve(database);
         })
     }
-    
+
     closeConnection(database) {
         // close an exsiting datbase connection
         database.close();
         console.debug(`closeConnection: close database conection`)
     }
-    
+
     async executeQuery(mode, sql) {
         // execute SQL under sqlite3, support 3 modes: RUN, GET and ALL,
         let queryResult;
-        await this.openConnection().then( async (database)=>{
+        await this.openConnection().then(async (database) => {
             try {
                 // for operation with no return record such as INSERT / DELETE
-                if (mode == RUN){
-                    return new Promise( async (resolve, reject) => {
+                if (mode == RUN) {
+                    return new Promise(async (resolve, reject) => {
                         await database.run(sql, (error) => {
                             if (error) {
                                 console.error(`executeQuery: failed to execute: \t${sql}\t${error.message}`);
@@ -61,10 +67,10 @@ class sqlite3DatabaseConnection{
                         })
                     });
                 }
-                
+
                 // for operation have single return record such as SELECT
-                if (mode == GET){
-                    return new Promise( async (resolve, reject) => {
+                if (mode == GET) {
+                    return new Promise(async (resolve, reject) => {
                         await database.get(sql, (error, row) => {
                             if (error) {
                                 console.error(`executeQuery: failed to execute: \t${sql}\t${error.message}`);
@@ -75,10 +81,10 @@ class sqlite3DatabaseConnection{
                         });
                     });
                 }
-        
+
                 // for operation with mutilple return records such as SELECT *
-                if (mode == ALL){
-                    return new Promise( async (resolve, reject) => {
+                if (mode == ALL) {
+                    return new Promise(async (resolve, reject) => {
                         await database.all(sql, (error, rows) => {
                             if (error) {
                                 console.error(`executeQuery: failed to execute: \t${sql}\t${error.message}`);
@@ -87,8 +93,9 @@ class sqlite3DatabaseConnection{
                             }
                             resolve(rows);
                         });
-                    });    
+                    });
                 }
+
                 throw new Error(`unsupported mode: ${mode}, not in {RUN, GET, ALL}`);
             } catch (error) {
                 console.error(`executeQuery: ${error.message}`);
@@ -96,18 +103,53 @@ class sqlite3DatabaseConnection{
             } finally {
                 this.closeConnection(database);
             }
-        }).then((result)=>{
+        }).then((result) => {
             // only for sql that has a result
             queryResult = result;
         });
-    
+
         return queryResult;
     }
+
+    // special for insert task
+    async insertTaskSQL(sql) {
+        let taskId = 'undefined';
+        await this.openConnection().then(async (database) => {
+            try{
+            return new Promise(async (resolve, reject) => {
+                await database.run(sql, async (error) => {
+                    if (error) {
+                        console.error(`insertTaskSQL: failed to execute: \t ${sql} \t ${error.message}`);
+                        reject(error);
+                        return;
+                    }
+                    taskId = await database.get('SELECT last_insert_rowid()', (error, result) => {
+                        if (error) {
+                            console.error(`insertTaskSQL: failed to get last insert rowid : ${error.message}`);
+                            reject(error);
+                            return;
+                        }
+                        resolve(result['last_insert_rowid()']);
+                    });
+
+                });
+            });
+        } catch (error) {
+            console.error(`insertTaskSQL: ${error.message}`);
+            return;
+        } finally {
+            this.closeConnection(database);
+        };
+
+        }).then ((result) => {
+            taskId = result;
+        });
+        return taskId;
+    }
 }
-
-module.exports = { RUN, GET, ALL, sqlite3DatabaseConnection}
-    
-
-
-
-
+module.exports = {
+    RUN,
+    GET,
+    ALL,
+    sqlite3DatabaseConnection
+}

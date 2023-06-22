@@ -79,9 +79,9 @@ function Server() {
     const newTaskDescription = payload.description;
 
     try {
-      await toDoDbManager.insertATask(newTaskDescription);
+      const taskId = await toDoDbManager.insertATask(newTaskDescription);
       const resJson = {
-        statusDescription: "A new task is added"
+        taskId: taskId,
       }
       res.set({
         'Content-Type': 'application/json'

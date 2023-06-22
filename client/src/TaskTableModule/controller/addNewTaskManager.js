@@ -19,16 +19,17 @@ function addTaskInit(table) {
         if (taskDescription.trim() !== '') {
             console.log(`button clicked ${taskDescription}`);
             // Perform task creation logic here
-            const newTask = new Task("", false, false, taskDescription.trim());
             axios({
                 method: 'post',
                 url: '/todo/add-task',
                 data: {
                     description: taskDescription.trim(),
                 }
-            }).then(() => {
+            }).then((response) => {
                 // on success
-
+                const taskId = response.data.taskId;
+                console.log(`new task id: ${taskId}`)
+                const newTask = new Task(taskId, false, false, taskDescription.trim());
                 // show in notification
                 addTaskToTable(newTask, table);
 
