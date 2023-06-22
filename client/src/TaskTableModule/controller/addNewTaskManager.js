@@ -17,7 +17,7 @@ function addTaskInit(table) {
         if (taskDescription.trim() !== '') {
             console.log(`button clicked ${taskDescription}`);
             // Perform task creation logic here
-            const newTask = new Task("fun", false, false, taskDescription.trim());
+            const newTask = new Task("", false, false, taskDescription.trim());
             axios({
                 method: 'post',
                 url: '/todo/add-task',

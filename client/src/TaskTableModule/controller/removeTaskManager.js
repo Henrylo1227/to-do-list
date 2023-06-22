@@ -11,7 +11,9 @@ function attachRemoveTaskBtnListener(task, index){
     const btn = $('#del-' + index);
     if (btn != null) {
       btn.on('click', () => {
-        removeATaskFromServer(task.getTaskId())
+        removeATaskFromServer(task.getTaskId()).then((taskList) => {
+            // reload view
+        });
       });
     } else {
       console.log('btn object is null, taskId: ' + index);
