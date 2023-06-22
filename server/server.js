@@ -57,8 +57,6 @@ function Server() {
   // to-do application
   // get all task 
   app.get('/todo/all-task', async (req, res) => {
-    console.debug('Sever: "GET/todo/all-task" request received...');
-    
     try {
       const dataJson = await toDoDbManager.getAllTask();
       res.set({
@@ -100,9 +98,9 @@ function Server() {
 
     try {
       await toDoDbManager.removeATask(taskId);
-      const resJson = { statusDescription: `Task ${taskId} is removed` }
+      const dataJson = await toDoDbManager.getAllTask();
       res.set({'Content-Type': 'application/json'});
-      res.send(resJson);
+      res.send(dataJson);
     } catch (error) {
       console.debug('server: '+ error);
       res.sendStatus(500);
