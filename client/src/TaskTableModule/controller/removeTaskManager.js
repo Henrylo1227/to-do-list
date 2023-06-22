@@ -1,4 +1,5 @@
 const {getCheckedSelectorList} = require("./SelectorManager.js");
+<<<<<<< HEAD
 const AlertController = require('../../AlertModule/controller/alertController.js');
 const { MyAlert, SUCCESS, FAILURE } = require('../../AlertModule/model/myAlert.js')
 const axios = require('../../../../node_modules/axios/dist/browser/axios.cjs');
@@ -19,47 +20,47 @@ function attachRemoveTaskBtnListener(task, index){
       console.log('btn object is null, taskId: ' + index);
     }
 }
+=======
+>>>>>>> parent of 53e9e0c (aborts changes)
 
 function removeTaskInit(table){
-    /*
-    $('#remove-selected-btn').on('click', async ()=>{
-        console.log('remove-selected-btn clicked');
-        let selectedList = getCheckedSelectorList();
-        let selectedTaskIdList = [];
-        selectedList = getCheckedSelectorList();
-        selectedTaskIdList = [];
-        selectedList.forEach((e) =>{
-            const taskIndex = e.id.slice(7); // Index in taskList
-            const taskId = table.taskList[taskIndex].getTaskId(); //todo TASK ID IS SET IN DATABASE FROM THIS POINT NEWLY CREATED TASK DOES NOT HAVE TASK ID
-            console.log(`Extracted task ID: ${taskId}`);
-            selectedTaskIdList.push(taskId);
+    $('#remove-selected-btn').on('click', ()=>{
+        const selectedTasks = getCheckedSelectorList();
+        const selectedTaskIdList = [];
+        selectedTasks.forEach( (e) => {
+            console.log(e.id.slice(7));
+            selectedTaskIdList.push(e.id.slice(7));//select-n --> n; extract the taskId from the html checkbox id 
         });
         removeSelectedTasks(table, selectedTaskIdList);
     });
-    */
+}
+
+
+//remove a task with taskid from table
+function removeATask(table, taskId){
+    const tempList = [];
+    for (let i = 0; i < table.taskList.length; i++) {
+      if (i != taskId) {
+        tempList.push(table.taskList[i]);
+      }
+    }
+    table.taskList = tempList;
+    //Todo: update database
+    table.reloadTableUI();
 }
 
 //remove a number of task with a list of taskid from table
-async function removeSelectedTasks(table, selectedTaskIdList){
-    // database connected to server
-    await axios({
-        method: 'post',
-        url: '/todo/remove-a-list-of-task',
-        data: {
-            taskIdList: selectedTaskIdList,
+function removeSelectedTasks(table, taskIdList){
+    const tempList = [];
+    for (let i = 0; i < table.taskList.length; i++){
+        if (!(i in taskIdList)){
+            tempList.push(table.taskList[i]);
         }
-    }).then(() =>{
-        // alert
-        console.debug(`removeSelectedTasks: successfully remove tasks: ${selectedTaskIdList.join(', ')}`);
-        const alert = new MyAlert(SUCCESS, "Successfully remove selected tasks");
-        AlertController.DisplayAlert(alert);
-    }).catch((error)=>{
-        //alert
-        const alert = new MyAlert(FAILURE, "Failed to remove selected tasks");
-        AlertController.DisplayAlert(alert);
-        console.error(`removeSelectedTasks: failed to remove selected task: ${error.message}`);
-    });
-    LoadData(table);
+    }
+    table.taskList = tempList;
+    //Todo: update database
+
+    table.reloadTableUI();
 }
 
-module.exports = {removeTaskInit, removeATask, attachRemoveTaskBtnListener};
+module.exports = {removeTaskInit, removeATask};

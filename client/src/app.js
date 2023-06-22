@@ -1,3 +1,6 @@
-const {tableInit} = require('./TaskTableModule/model/TaskTableModel'); 
+const AlertController = require('./AlertModule/controller/alertController');
+const { MyAlert, SUCCESS, FAILURE, CONNECT_ERROR } = require('./AlertModule/model/myAlert');
+const {TableInit} = require('./TaskTableModule/model/TaskTableModel');
 
-tableInit();
+// Initialize table
+TableInit();

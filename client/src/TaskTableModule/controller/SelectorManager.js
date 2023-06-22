@@ -35,7 +35,7 @@ function getCheckedSelectorList(){
     const checkedSelectorList = [];
     const selectorList = getSelectorList();
     for (let i = 0; i < selectorList.length; i++){
-        if (selectorList[i].id!='select-all-checkbox' && selectorList[i].checked === true){
+        if (selectorList[i].id!='select-all-checkbox' && selectorList[i].checked == true){
             checkedSelectorList.push(selectorList[i]);
         }
     }

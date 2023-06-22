@@ -10,10 +10,12 @@ function addTaskInit(table) {
     })
 
     // modal
+    const taskDescriptionInput = $('#taskDescription');
     const createTaskBtn = $('#createTaskBtn').on('click', () => {
         createTaskBtn.disabled = true;
-        const taskDescription = $('#taskDescription').val();
+        const taskDescription = taskDescriptionInput.val();
  
+
         if (taskDescription.trim() !== '') {
             console.log(`button clicked ${taskDescription}`);
             // Perform task creation logic here
@@ -26,33 +28,32 @@ function addTaskInit(table) {
                 }
             }).then(() => {
                 // on success
+
+                // show in notification
                 addTaskToTable(newTask, table);
+
                 // Reset the input field
-                $('#taskDescription').val('');
+                taskDescriptionInput.value = '';
 
                 // Close the modal
                 $('#addTaskModal').modal('hide');
 
-                LoadData(table);
 
                 // alert
                 const alert = new MyAlert(SUCCESS, `create task ${taskDescription} successfully`);
                 DisplayAlert(alert);
                 createTaskBtn.disabled = false;
 
-
             }).catch((error) => {
                 // alert
                 const alert = new MyAlert(FAILURE, `failed to create task ${taskDescription}`);
                 DisplayAlert(alert);
-
-                console.error(`failed to create task: ${error.message}`);
             });
         }
 
     });
 
-    $('#taskDescription').on('keypress', (event) => {
+    taskDescriptionInput.on('keypress', (event) => {
         if (event.key === 'Enter') {
             createTaskBtn.click();
         }
