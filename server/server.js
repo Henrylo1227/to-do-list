@@ -125,6 +125,51 @@ function Server() {
     }
   });
 
+  // check a task (toggle the check state of a task)
+  app.post('/todo/check-a-task', async (req, res) => {
+    const payload = req.body;
+    const taskId = payload.taskId;
+    try {
+      await toDoDbManager.toggleCheckStateATask(taskId);
+      const resJson = { statusDescription: `Task ${taskId} is check or unchecked` }
+      res.set({'Content-Type': 'application/json'});
+      res.send(resJson);
+    } catch (error) {
+      console.debug('server: '+ error);
+      res.sendStatus(500);
+    }
+  });
+
+  // check a series of task
+  app.post('/todo/check-a-list-of-task', async (req, res) => {
+    const payload = req.body;
+    const taskIdList = req.taskIdList;
+    try {
+      await toDoDbManager.checkAListOfTask(taskIdList);
+      const resJson = { statusDescription: `Task with taskId: ${taskIdList.join(', ')} is check` }
+      res.set({'Content-Type': 'application/json'});
+      res.send(resJson);
+    } catch (error) {
+      console.debug('server: '+ error);
+      res.sendStatus(500);
+    }
+  });
+
+  // uncheck a series of task
+  app.post('/todo/uncheck-a-list-of-task', async (req, res) => {
+    const payload = req.body;
+    const taskIdList = req.taskIdList;
+    try {
+      await toDoDbManager.checkAListOfTask(taskIdList);
+      const resJson = { statusDescription: `Task with taskId: ${taskIdList.join(', ')} is uncheck` }
+      res.set({'Content-Type': 'application/json'});
+      res.send(resJson);
+    } catch (error) {
+      console.debug('server: '+ error);
+      res.sendStatus(500);
+    }
+  });
+
   // Start the server
   app.listen(port, hostname, () => {
     console.log(`Server: Server is running on http://${hostname}:${port}`);

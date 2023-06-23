@@ -60,7 +60,7 @@ class ToDoDbManager {
     }
 
     async removeATask(taskId){
-        const sql = `delete from TABLE_TASK where task_id="${taskId};"`;
+        const sql = `delete from TABLE_TASK where task_id =${taskId};`;
         await this.database.executeQuery(DatabaseModule.RUN, sql);
         console.debug(`removeATask: task taskId: ${taskId} is removed`);
     }
@@ -95,7 +95,7 @@ class ToDoDbManager {
                             else check_state
                             end 
                             where task_id = ${taskId}`
-        await this.database(DatabaseModule.RUN, sql);
+        await this.database.executeQuery(DatabaseModule.RUN, sql);
     }
 }
 

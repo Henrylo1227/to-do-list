@@ -7,7 +7,7 @@ const {selectorInit} = require('../controller/SelectorManager.js');
 const {checkTaskInit} = require('../controller/checkTaskManager.js');
 
 const axios = require('../../../../node_modules/axios/dist/browser/axios.cjs');
-const AlertController = require('../../AlertModule/controller/alertController.js');
+const {DisplayAlert} = require('../../AlertModule/controller/alertController.js');
 const { MyAlert, SUCCESS, FAILURE, CONNECT_ERROR } = require('../../AlertModule/model/myAlert.js');
 
 module.exports = { TableInit }
@@ -36,8 +36,8 @@ function LoadData(taskTable){
         loadDataFromList(taskTable, dataList);
     }).catch((error)=>{
         const alert = new MyAlert(FAILURE, "Unable to retrieve data from database");
-        alertController.addAlert(alert);
-        console.error(`TableInit: failed to retrieve table data: ${error.message}`);
+        DisplayAlert(alert);
+        console.error(`LoadData: failed to retrieve table data: ${error.message}`);
     });
 }
 

@@ -152,7 +152,7 @@ export class TaskTable {
       if (btn != null){
         console.log('Attach check btn listener');
         btn.on('click', ()=>{
-          checkATask(this, taskIndex);
+          checkATask(this, this.taskList[taskIndex].getTaskId(),taskIndex);
         });
       } else {
         console.log('btn object is null, taskId: ' + taskIndex);
@@ -166,8 +166,8 @@ export class TaskTable {
       if (btn != null) {
         btn.on('click', () => {
           // the taskId of the deleted item
-          removeATask(this, taskIndex);  
-        
+          console.log(this.taskList[taskIndex]);
+          removeATask(this, this.taskList[taskIndex].getTaskId(), taskIndex);  
         });
       } else {
         console.log('btn object is null, taskId: ' + taskIndex);
