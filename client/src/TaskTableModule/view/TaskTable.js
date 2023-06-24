@@ -177,6 +177,7 @@ export class TaskTable {
   
     // apply change
     reloadTableUI() {
+      $('#select-all-checkbox').prop('checked', false);
       const tableBody = $('#table-body');
       tableBody.empty();
       this.taskList.forEach((task, index) => {

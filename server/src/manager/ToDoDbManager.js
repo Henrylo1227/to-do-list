@@ -17,7 +17,7 @@ class ToDoDbManager {
             task_id         INTEGER     PRIMARY KEY     AUTOINCREMENT,
             check_state     BOOL,
             description     VARCHAR(20));
-            `; //TODO   
+            `;
         await this.database.executeQuery(DatabaseModule.RUN, sql);
         console.debug('Database initialized successfully.')
     }
@@ -79,7 +79,7 @@ class ToDoDbManager {
         console.debug(`checkAListOfTask: task taskId: ${taskIdList.join(', ')} are checked`);
     }
 
-    async uncheckAlistOfTask(taskIdList){
+    async uncheckAListOfTask(taskIdList){
         const sqlEnd = taskIdList.join(' or ');
         const sql = `update TABLE_TASK set check_state = false where task_id = ${sqlEnd};`;
         await this.database.executeQuery(DatabaseModule.RUN, sql);

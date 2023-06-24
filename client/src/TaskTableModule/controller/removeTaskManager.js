@@ -1,17 +1,17 @@
 const axios = require("../../../../node_modules/axios/dist/browser/axios.cjs");
-const {getCheckedSelectorList} = require("./SelectorManager.js");
+const {getCheckedSelectorList, convertTaskIndexListToTaskIdList} = require("./SelectorManager.js");
 const { DisplayAlert } = require("../../AlertModule/controller/alertController.js");
 const { MyAlert, SUCCESS, FAILURE } = require("../../AlertModule/model/myAlert.js");
 
 function removeTaskInit(table){
     $('#remove-selected-btn').on('click', ()=>{
         const selectedTasks = getCheckedSelectorList();
-        const selectedTaskIdList = [];
+        const selectedTaskIndexList = [];
         selectedTasks.forEach( (e) => {
             console.log(e.id.slice(7));
-            selectedTaskIdList.push(e.id.slice(7));//select-n --> n; extract the taskId from the html checkbox id 
+            selectedTaskIndexList.push(e.id.slice(7));//select-n --> n; extract the taskId from the html checkbox id 
         });
-        removeSelectedTasks(table, selectedTaskIdList);
+        removeSelectedTasks(table, selectedTaskIndexList);
     });
 }
 
@@ -49,17 +49,35 @@ function removeATask(table, taskId, taskIndex){
 }
 
 //remove a number of task with a list of taskid from table
-function removeSelectedTasks(table, taskIdList){
-    const tempList = [];
-    for (let i = 0; i < table.taskList.length; i++){
-        if (!(i in taskIdList)){
-            tempList.push(table.taskList[i]);
+function removeSelectedTasks(table, selectedTaskIndexList){
+    const selectedTaskIdList = convertTaskIndexListToTaskIdList(table, selectedTaskIndexList);
+    axios({
+        method: 'post',
+        url: '/todo/remove-a-list-of-task',
+        data: {
+            taskIdList: selectedTaskIdList,
         }
-    }
-    table.taskList = tempList;
-    //Todo: update database
+    }).then((response) => {
+        // on success
+        const statusDescription = response.data.statusDescription;
+        console.log(`response from server: ${statusDescription}`);
 
-    table.reloadTableUI();
+        // Alert
+        DisplayAlert(new MyAlert(SUCCESS, 'Remove selected tasks successfully!'));
+
+        // local update
+        let newTaskList = [];
+        selectedTaskIdList.forEach((taskId) => {
+            newTaskList.push(table.taskList[taskIdList]);
+        });
+        table.taskList = newTaskList;
+        table.reloadTableUI();
+
+    }).catch((error) => {
+        // on failure
+        DisplayAlert(new MyAlert(FAILURE, 'Failed to remove a list of task'));
+        console.error(`removeSelectedTasks: failed to remove task: ${error}`);
+    });
 }
 
 module.exports = {removeTaskInit, removeATask};

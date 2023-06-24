@@ -5,7 +5,7 @@ there are three types of alerts.
 2. failure: the latest operation is failed
 3. connection error: that the server is down, service is no longer avaliable
 */
-const { CreateAlertView, AttachAlertView } = require('../view/alertView');
+const { CreateAlertView, AttachAlertView, EmptyAlertView } = require('../view/alertView');
 
 function DisplayAlert(alert){
     console.log(`creating alert view ${alert.msg}`);
@@ -13,4 +13,8 @@ function DisplayAlert(alert){
     AttachAlertView(alertView);
 }
 
-module.exports = { DisplayAlert };
+function ClearAlert(){
+    EmptyAlertView();
+}
+
+module.exports = { DisplayAlert, ClearAlert};

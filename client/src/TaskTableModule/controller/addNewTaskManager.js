@@ -34,7 +34,7 @@ function addTaskInit(table) {
                 addTaskToTable(newTask, table);
 
                 // Reset the input field
-                taskDescriptionInput.value = '';
+                taskDescriptionInput.val('');
 
                 // Close the modal
                 $('#addTaskModal').modal('hide');
@@ -65,7 +65,6 @@ function addTaskInit(table) {
 //create a modal form to collect infomation on new task
 function showCreateNewTaskModalForm(table) {
     $('#addTaskModal').modal('show');
-    const taskDescriptionInput = document.getElementById('taskDescription');
 }
 
 function addTaskToTable(newTask, table) {

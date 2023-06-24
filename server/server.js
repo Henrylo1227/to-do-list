@@ -143,7 +143,7 @@ function Server() {
   // check a series of task
   app.post('/todo/check-a-list-of-task', async (req, res) => {
     const payload = req.body;
-    const taskIdList = req.taskIdList;
+    const taskIdList = payload.taskIdList;
     try {
       await toDoDbManager.checkAListOfTask(taskIdList);
       const resJson = { statusDescription: `Task with taskId: ${taskIdList.join(', ')} is check` }
@@ -158,9 +158,9 @@ function Server() {
   // uncheck a series of task
   app.post('/todo/uncheck-a-list-of-task', async (req, res) => {
     const payload = req.body;
-    const taskIdList = req.taskIdList;
+    const taskIdList = payload.taskIdList;
     try {
-      await toDoDbManager.checkAListOfTask(taskIdList);
+      await toDoDbManager.uncheckAListOfTask(taskIdList);
       const resJson = { statusDescription: `Task with taskId: ${taskIdList.join(', ')} is uncheck` }
       res.set({'Content-Type': 'application/json'});
       res.send(resJson);

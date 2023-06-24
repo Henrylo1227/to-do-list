@@ -16,6 +16,10 @@ export class Task{
         this.checkState = !this.checkState;
     }
 
+    setCheckState(state){
+        this.checkState = state;
+    }
+
     getTaskId(){
         return this.taskId;
     }

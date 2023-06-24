@@ -24,6 +24,17 @@ function selectorInit(){
     });
 }
 
+// convert a list of taskIndex to taskId
+function convertTaskIndexListToTaskIdList(table, taskIndex){
+    let taskIdList = [];
+
+    taskIndex.forEach((taskIndex) => {
+        const taskId = table.taskList[taskIndex].getTaskId();
+        taskIdList.push(taskId);
+    })
+    return taskIdList;
+}
+
 
 //return a list selectors in the table
 function getSelectorList(){
@@ -57,4 +68,4 @@ function uncheckAllSelectors(){
     }
 }
 
-module.exports = {selectorInit, getCheckedSelectorList};
+module.exports = {selectorInit, getCheckedSelectorList, convertTaskIndexListToTaskIdList};
