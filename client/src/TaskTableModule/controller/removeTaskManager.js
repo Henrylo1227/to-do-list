@@ -66,9 +66,11 @@ function removeSelectedTasks(table, selectedTaskIndexList){
 
         // local update
         let newTaskList = [];
-        selectedTaskIdList.forEach((taskId) => {
-            newTaskList.push(table.taskList[taskIdList]);
-        });
+        table.taskList.forEach((task, index) => {
+            if (!(index in selectedTaskIndexList)){
+                newTaskList.push(task);
+            }
+        })
         table.taskList = newTaskList;
         table.reloadTableUI();
 

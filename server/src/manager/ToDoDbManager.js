@@ -66,21 +66,21 @@ class ToDoDbManager {
     }
 
     async removeAListOfTask(taskIdList){
-        const sqlEnd = taskIdList.join(' or ');
+        const sqlEnd = taskIdList.join(' or task_id = ');
         const sql = `delete from TABLE_TASK where task_id = ${sqlEnd};`;
         await this.database.executeQuery(DatabaseModule.RUN, sql);
-        console.debug(`removeAListOfTask: task taskId: ${taskIdList.join(', ')} are checked`);
+        console.debug(`removeAListOfTask: task taskId: ${taskIdList.join(', ')} are removed`);
     }
 
     async checkAListOfTask(taskIdList){
-        const sqlEnd = taskIdList.join(' or ');
+        const sqlEnd = taskIdList.join(' or task_id = ');
         const sql = `update TABLE_TASK set check_state = true where task_id = ${sqlEnd};`;
         await this.database.executeQuery(DatabaseModule.RUN, sql);
         console.debug(`checkAListOfTask: task taskId: ${taskIdList.join(', ')} are checked`);
     }
 
     async uncheckAListOfTask(taskIdList){
-        const sqlEnd = taskIdList.join(' or ');
+        const sqlEnd = taskIdList.join(' or task_id = ');
         const sql = `update TABLE_TASK set check_state = false where task_id = ${sqlEnd};`;
         await this.database.executeQuery(DatabaseModule.RUN, sql);
         console.debug(`checkAListOfTask: task taskId: ${taskIdList.join(', ')} are unchecked`);
