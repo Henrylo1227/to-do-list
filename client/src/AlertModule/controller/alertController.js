@@ -8,9 +8,7 @@ there are three types of alerts.
 const { CreateAlertView, AttachAlertView, EmptyAlertView } = require('../view/alertView');
 
 function DisplayAlert(alert){
-    console.log(`creating alert view ${alert.msg}`);
-    const alertView = CreateAlertView(alert);
-    AttachAlertView(alertView);
+    AttachAlertView(CreateAlertView(alert));
 }
 
 function ClearAlert(){

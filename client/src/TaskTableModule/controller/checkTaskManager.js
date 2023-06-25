@@ -14,7 +14,6 @@ function checkTaskInit(table){
         const selectedTasks = getCheckedSelectorList();
         const selectedTaskIndexList = [];
         selectedTasks.forEach( (e) => {
-            console.log('check selected: ' +e.id.slice(7));
             selectedTaskIndexList.push(e.id.slice(7));
         });
         // decided check mode (either check or uncheck) based on the check state
@@ -39,7 +38,7 @@ function checkATask(table, taskId, taskIndex){
     }).then((response) => {
         // on success
         const statusDescription = response.data.statusDescription;
-        console.log(`response from server: ${statusDescription}`);
+        console.debug(`response from server: ${statusDescription}`);
 
         // Alert
         ClearAlert();
@@ -81,7 +80,7 @@ function checkSelectedTasks(mode, table, selectedTaskIndexList){
     }).then((response)=>{
         // on success
         const statusDescription = response.data.statusDescription;
-        console.log(`response from server: ${statusDescription}`);
+        console.debug(`response from server: ${statusDescription}`);
 
         // local update
         selectedTaskIndexList.forEach((taskIndex) => {

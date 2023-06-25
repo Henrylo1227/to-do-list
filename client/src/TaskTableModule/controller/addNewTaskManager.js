@@ -5,7 +5,7 @@ const { DisplayAlert } = require('../../AlertModule/controller/alertController.j
 
 function addTaskInit(table) {
 
-    const addNewTaskBtn = $('#add-new-task-btn').on('click', () => {
+    $('#add-new-task-btn').on('click', () => {
         showCreateNewTaskModalForm(table);
     })
 
@@ -17,7 +17,6 @@ function addTaskInit(table) {
  
 
         if (taskDescription.trim() !== '') {
-            console.log(`button clicked ${taskDescription}`);
             // Perform task creation logic here
             axios({
                 method: 'post',
@@ -28,7 +27,7 @@ function addTaskInit(table) {
             }).then((response) => {
                 // on success
                 const taskId = response.data.taskId;
-                console.log(`new task id: ${taskId}`)
+                console.debug(`new task id: ${taskId}`)
                 const newTask = new Task(taskId, false, false, taskDescription.trim());
                 // show in notification
                 addTaskToTable(newTask, table);
@@ -47,8 +46,9 @@ function addTaskInit(table) {
 
             }).catch((error) => {
                 // alert
-                const alert = new MyAlert(FAILURE, `failed to create task ${taskDescription}`);
+                const alert = new MyAlert(FAILURE, `Failed to create task ${taskDescription}`);
                 DisplayAlert(alert);
+                console.error(`Faild to create task: ${error}`);
             });
         }
 

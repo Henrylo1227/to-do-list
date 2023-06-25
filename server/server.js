@@ -2,7 +2,6 @@ const { ToDoDbManager } = require('./src/manager/ToDoDbManager')
 const config = require('./config');
 const express = require('express');
 const bodyParser = require('body-parser');
-const { debug } = require('console');
 
 // configs
 // server
@@ -24,9 +23,9 @@ function Server() {
 
 
   app.use(bodyParser.json());
-  // static files 
+  // static files
+
   // index.html
-  
   app.get('/', (req, res) => {
     const filePath = path.join(__dirname,'..', 'public','dist', 'index.html');
     res.set({
@@ -45,7 +44,6 @@ function Server() {
   });
 
   // favicon
-  
   app.get('/favicon_to_do_list.ico', (req, res) => {
     const filePath = path.join(__dirname, '..','public','img', 'favicon_to_do_list.ico');
     res.set({

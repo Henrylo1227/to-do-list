@@ -8,7 +8,6 @@ function removeTaskInit(table){
         const selectedTasks = getCheckedSelectorList();
         const selectedTaskIndexList = [];
         selectedTasks.forEach( (e) => {
-            console.log(e.id.slice(7));
             selectedTaskIndexList.push(e.id.slice(7));//select-n --> n; extract the taskId from the html checkbox id 
         });
         removeSelectedTasks(table, selectedTaskIndexList);
@@ -28,7 +27,7 @@ function removeATask(table, taskId, taskIndex){
     }).then((response) => {
         // on success
         const statusDescription = response.data.statusDescription;
-        console.log(`response from server: ${statusDescription}`);
+        console.debug(`response from server: ${statusDescription}`);
         
         // alert
         DisplayAlert(new MyAlert(SUCCESS, 'A Task is removed'));
@@ -60,7 +59,7 @@ function removeSelectedTasks(table, selectedTaskIndexList){
     }).then((response) => {
         // on success
         const statusDescription = response.data.statusDescription;
-        console.log(`response from server: ${statusDescription}`);
+        console.debug(`response from server: ${statusDescription}`);
 
         // Alert
         DisplayAlert(new MyAlert(SUCCESS, 'Remove selected tasks successfully!'));

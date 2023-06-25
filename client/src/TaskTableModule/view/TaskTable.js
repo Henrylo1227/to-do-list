@@ -150,13 +150,12 @@ export class TaskTable {
     attachCheckTaskBtnListener(taskIndex){
       const btn = $('#check-' + taskIndex);
       if (btn != null){
-        console.log('Attach check btn listener');
         btn.on('click', ()=>{
           checkATask(this, this.taskList[taskIndex].getTaskId(),taskIndex);
         });
       } else {
-        console.log('btn object is null, taskId: ' + taskIndex);
-        console.log(this.taskList);
+        console.debug('btn object is null, taskId: ' + taskIndex);
+        console.debug(this.taskList);
       }
     }
   
@@ -166,20 +165,18 @@ export class TaskTable {
       if (btn != null) {
         btn.on('click', () => {
           // the taskId of the deleted item
-          console.log(this.taskList[taskIndex]);
           removeATask(this, this.taskList[taskIndex].getTaskId(), taskIndex);  
         });
       } else {
-        console.log('btn object is null, taskId: ' + taskIndex);
-        console.log(this.taskList);
+        console.debug('btn object is null, taskId: ' + taskIndex);
+        console.debug(this.taskList);
       }
     }
   
     // apply change
     reloadTableUI() {
       $('#select-all-checkbox').prop('checked', false);
-      const tableBody = $('#table-body');
-      tableBody.empty();
+      $('#table-body').empty();
       this.taskList.forEach((task, index) => {
         //index as taskId
         this.createTaskUI(task, index);

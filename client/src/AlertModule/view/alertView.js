@@ -38,15 +38,11 @@ function CreateAlertView(alert){
 
 function AttachAlertView(alertView){
     EmptyAlertView();
-    // Attach an alertView to the #alert-row
-    console.log('empted ');
-    alertRow.append(alertView);
+    $('#alert-row').append(alertView);
 }
 
 function EmptyAlertView(){
-    const alertRow = $('#alert-row');
-    // clear alerts in alert row
-    alertRow.empty();
+    $('#alert-row').empty();
 }
 
 module.exports = { CreateAlertView, AttachAlertView, EmptyAlertView };

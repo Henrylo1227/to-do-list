@@ -3,9 +3,6 @@ var Promise = require('promise');
 const {
     database
 } = require('../config');
-const {
-    resolve
-} = require('url');
 
 // operation mode
 const RUN = 1;

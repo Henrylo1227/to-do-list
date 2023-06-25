@@ -50,7 +50,7 @@ function getCheckedSelectorList(){
             checkedSelectorList.push(selectorList[i]);
         }
     }
-    console.log(checkedSelectorList);
+    console.debug(checkedSelectorList);
     return checkedSelectorList;
 }
 

@@ -16,12 +16,10 @@ function TableInit(){
     const taskTable = new TaskTable();
     
     taskTable.createTaskTableUI();
-
     // Data    
     LoadData(taskTable)
     // UI
     LoadModules(taskTable);
-
 }
 
 

@@ -1,5 +1,7 @@
-const { MyAlert, SUCCESS, FAILURE, CONNECT_ERROR } = require('./AlertModule/model/myAlert');
-const {TableInit} = require('./TaskTableModule/model/TaskTableModel');
+const { TableInit } = require ('./TaskTableModule/model/TaskTableModel')
 
-// Initialize table
+function startApp(){
+    TableInit();
+}
+
 TableInit();
